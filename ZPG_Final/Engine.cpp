@@ -1,17 +1,19 @@
 #include "Engine.h"
-#include "Shaders/Fragment_shader.h"
-#include "Shaders/Vertex_shader.h"
+//#include "Shaders/Fragment_shader.h"
+//#include "Shaders/Vertex_shader.h"
 #include "Shader.h"
 #include "ShaderLoader.h"
 #include "Object.h"
 #include "Utilities/MatrixHandler.h"
 #include "Camera.h"
 #include "Scene.h"
-#include "Models/sphere.h"
-#include "Models/plain.h"
-#include "Models/suzi_flat.h"
-#include "Models/suzi_smooth.h"
+//#include "Models/sphere.h"
+//#include "Models/plain.h"
+//#include "Models/suzi_flat.h"
+//#include "Models/suzi_smooth.h"
 
+#include "ModelFactory.h"
+#include "ShaderManager.h"
 
 
 
@@ -79,27 +81,19 @@ void Engine::startRendering() {
 
 	glfwSetCursorPos(this->window->getWindow(), (window->getWidth() / 2), (window->getHeight() / 2));
 
-	//ShaderProg* sp = new ShaderProg(vertex_shader, fragment_shader);
-	GLuint colShID = 0;
-	GLuint constShID = 0;
-	GLuint lambertShID = 0;
-	GLuint phongShID = 0;
-
-
-	new ShaderLoader("./Shaders/vertex_shader.glsl", "./Shaders/fragment_shader.glsl", &colShID);
-	new ShaderLoader("./Shaders/vertex_shader_constant.glsl", "./Shaders/fragment_shader_constant.glsl", &constShID);
-	new ShaderLoader("./Shaders/vertex_shader_lambert.glsl", "./Shaders/fragment_shader_lambert.glsl", &lambertShID);
-	new ShaderLoader("./Shaders/vertex_shader_phong.glsl", "./Shaders/fragment_shader_phong.glsl", &phongShID);
 
 
 
-	Shader* colSp = new Shader(colShID);
-	Shader* constSp = new Shader(constShID);
-	Shader* lambSp = new Shader(lambertShID);
-	Shader* phongSp = new Shader(phongShID);
 
 
 
+	//Shader* colSp = new Shader("./Shaders/vertex_shader.glsl", "./Shaders/fragment_shader.glsl");
+	//Shader* constSp = new Shader("./Shaders/vertex_shader_constant.glsl", "./Shaders/fragment_shader_constant.glsl");
+	//Shader* lambSp = new Shader("./Shaders/vertex_shader_lambert.glsl", "./Shaders/fragment_shader_lambert.glsl");
+	//Shader* phongSp = new Shader("./Shaders/vertex_shader_phong.glsl", "./Shaders/fragment_shader_phong.glsl");
+
+
+	/*
 	Object* cube = new Object(new Model(points1, 10 * (3 + 3), 6, 3, 2, GL_TRIANGLE_STRIP), constSp);
 	Object* roof = new Object(new Model(points2, 8  * (3 + 3), 6, 3, 2, GL_TRIANGLE_STRIP), colSp);
 	Object* sphereO = new Object(new Model(sphere, 2880 * (3 + 3), 6), colSp);
@@ -119,15 +113,18 @@ void Engine::startRendering() {
 	Object* suziSmoothO = new Object(new Model(suziSmooth, 2904 * (3 + 3), 6, 3, 2), phongSp);
 	suziSmoothO->setRotation(-0.02f, glm::vec3(.0f, 1.0f, .0f));
 	MatrixHandler::translate(suziSmoothO->getMatRef(), glm::vec3(5.0f, 0.0f, 8.0f));
+	*/
+	
+	ShaderManager* sm = ShaderManager::getInstance();
 
 
 	Camera* camera = new Camera(window->getWidth(), window->getHeight(), glm::vec3(0.0f, 0.0f, 5.0f));
-	camera->addListener(constSp);
-	camera->addListener(colSp);
-	camera->addListener(lambSp);
-	camera->addListener(phongSp);
+	//camera->addListener(constSp);
+	//camera->addListener(colSp);
+	camera->addListener(sm->getShader(SHADER_TYPE::LAMBERT));
+	camera->addListener(sm->getShader(SHADER_TYPE::PHONG));
 
-
+	/*
 	this->currentScene = new Scene();
 	currentScene->AddCamera(camera);
 	currentScene->AddObject(cube);
@@ -136,15 +133,18 @@ void Engine::startRendering() {
 	currentScene->AddObject(plainO);
 	currentScene->AddObject(suziFlatO);
 	currentScene->AddObject(suziSmoothO);
+	*/
+
+	ModelFactory* mf = new ModelFactory();
 
 	Scene* scenaNemca = new Scene();
-	Object* sphereO1 = new Object(new Model(sphere, 2880 * (3 + 3), 6), phongSp);
+	Object* sphereO1 = new Object(mf->getModel(MODEL_TYPE::SPHERE), sm->getShader(SHADER_TYPE::PHONG));
 		MatrixHandler::translate(sphereO1->getMatRef(), glm::vec3(-2.0f, 0.0f, 0.0f));
-	Object* sphereO2 = new Object(new Model(sphere, 2880 * (3 + 3), 6), phongSp);
+	Object* sphereO2 = new Object(mf->getModel(MODEL_TYPE::SPHERE), sm->getShader(SHADER_TYPE::PHONG));
 		MatrixHandler::translate(sphereO2->getMatRef(), glm::vec3(2.0f, 0.0f, 0.0f));
-	Object* sphereO3 = new Object(new Model(sphere, 2880 * (3 + 3), 6), phongSp);	
+	Object* sphereO3 = new Object(mf->getModel(MODEL_TYPE::SPHERE), sm->getShader(SHADER_TYPE::PHONG));
 		MatrixHandler::translate(sphereO3->getMatRef(), glm::vec3(0.0f, 2.0f, 0.0f));
-	Object* sphereO4 = new Object(new Model(sphere, 2880 * (3 + 3), 6), phongSp);
+	Object* sphereO4 = new Object(mf->getModel(MODEL_TYPE::SPHERE), sm->getShader(SHADER_TYPE::PHONG));
 		MatrixHandler::translate(sphereO4->getMatRef(), glm::vec3(0.0f, -2.0f, 0.0f));
 	scenaNemca->AddObject(sphereO1);
 	scenaNemca->AddObject(sphereO2);

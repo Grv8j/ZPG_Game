@@ -16,12 +16,26 @@ Model::Model(const GLfloat* points, int size, int lineLen, int vecLen, int unifo
 
 	vao = new VAO();
 	vao->Bind();
+	
 	for(int i =0; i < i_top; i++){
 		vao->LinkAttrib(*vbo, i, vecLen, GL_FLOAT, lineLen * sizeof(GL_FLOAT), (GLvoid*)(i* vecLen * sizeof(GL_FLOAT)));
 	}
+	
+
 	vao->Unbind();
 	vbo->Unbind();
 }
+
+/*
+Model::Model(const GLfloat* points, GLint noPoints, GLint lineLen)
+{
+	this->pointNo = noPoints;
+	this->mode = GL_TRIANGLES;
+	this->vbo = new VBO(points, this->pointNo * lineLen);
+	this->vao = new VAO();
+	this->vao->Bind();
+}
+*/
 
 VAO* Model::getVAO() {
 	return vao;

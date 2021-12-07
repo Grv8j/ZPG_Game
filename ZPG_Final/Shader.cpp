@@ -7,29 +7,7 @@ Shader::Shader(GLuint ID)
 
 Shader::Shader(const char* vertex_shader, const char* fragment_shader)
 {
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertex_shader, NULL);
-	glCompileShader(vertexShader);
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragment_shader, NULL);
-	glCompileShader(fragmentShader);
-	this->ID = glCreateProgram();
-	glAttachShader(this->ID, fragmentShader);
-	glAttachShader(this->ID, vertexShader);
-	glLinkProgram(this->ID);
-
-	GLint status;
-	glGetProgramiv(this->ID, GL_LINK_STATUS, &status);
-	if (status == GL_FALSE)
-	{
-		GLint infoLogLength;
-		glGetProgramiv(this->ID, GL_INFO_LOG_LENGTH, &infoLogLength);
-		GLchar* strInfoLog = new GLchar[infoLogLength + 1];
-		glGetProgramInfoLog(this->ID, infoLogLength, NULL, strInfoLog);
-		fprintf(stderr, "Linker failure: %s\n", strInfoLog);
-		delete[] strInfoLog;
-		throw(1);
-	}
+	this->ID = loadShader(vertex_shader, fragment_shader);
 }
 
 void Shader::use() const
