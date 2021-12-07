@@ -1,6 +1,7 @@
 #include "Object.h"
 
-Object::Object(Model* model, ShaderProg* shaderProgram) {
+Object::Object(Model* model, Shader* shaderProgram)
+{
 	this->model = model;
 	this->shaderProgram = shaderProgram;
 	this->rotationAngle = 0.0f;
@@ -8,7 +9,9 @@ Object::Object(Model* model, ShaderProg* shaderProgram) {
 	this->transMat = glm::mat4(1.0f);
 	this->idModelTransform = glGetUniformLocation(this->shaderProgram->getShaderProgram(), "modelMatrix");
 }
-void Object::draw() {
+
+void Object::draw()
+{
 	shaderProgram->useShader();
 	glUniformMatrix4fv(this->idModelTransform, 1, GL_FALSE, &this->transMat[0][0]);
 
@@ -17,12 +20,16 @@ void Object::draw() {
 	MatrixHandler::rotate(this->getMatRef(), this->rotationAngle, this->rotationAxis);
 
 }
-ShaderProg* Object::getShader() {
+
+Shader* Object::getShader()
+{
 	return this->shaderProgram;
 }
+
 glm::mat4* Object::getMatRef() {
 	return &this->transMat;
 }
+
 void Object::setRotation(GLfloat rotationAngle, glm::vec3 rotationAxis) {
 	this->rotationAxis = rotationAxis;
 	this->rotationAngle = rotationAngle;

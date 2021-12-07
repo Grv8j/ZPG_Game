@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 
 #include <stdexcept>
 #include <glm/vec4.hpp>
@@ -12,20 +13,22 @@
 #include <GLFW/glfw3.h>
 #include<glm/gtc/type_ptr.hpp>
 
-#include "../ShaderObserver.h"
+#include "ShaderLoader.h"
+#include "ShaderObserver.h"
 
-
-
-class ShaderProg : public ShaderObserver
+class Shader : public ShaderObserver, public ShaderLoader
 {
 private:
-	GLuint shaderProgram;
+	GLuint ID;
 	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;
 	glm::vec3 cameraPosition;
+
+	void use() const;
+	GLint getUniformLocation(const char* name);
 public:
-	ShaderProg(GLuint shaderProgram);
-	ShaderProg(const char* vertex_shader, const char* fragment_shader);
+	Shader(GLuint ID);
+	Shader(const char* vertex_shader, const char* fragment_shader);
 	void useShader();
 	GLuint getShaderProgram();
 	virtual void update(glm::mat4 viewMatrix, glm::mat4 projectionMatrix, glm::vec3 cameraPosition);

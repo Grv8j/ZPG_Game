@@ -26,9 +26,9 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="ShaderObserver.h" />
-    <ClInclude Include="Shaders\ShaderLoader.h" />
-    <ClInclude Include="Shaders\ShaderProg.h" />
     <ClInclude Include="Subject.h" />
     <ClInclude Include="Utilities\MatrixHandler.h" />
     <ClInclude Include="VAO.h" />
@@ -43,8 +43,8 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="Shaders\ShaderLoader.cpp" />
-    <ClCompile Include="Shaders\ShaderProg.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderLoader.cpp" />
     <ClCompile Include="Utilities\MatrixHandler.cpp" />
     <ClCompile Include="VAO.cpp" />
     <ClCompile Include="VBO.cpp" />

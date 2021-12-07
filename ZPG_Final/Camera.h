@@ -10,7 +10,7 @@
 
 #include "Subject.h"
 
-#include "Shaders/ShaderProg.h"
+#include "Shader.h"
 
 const glm::vec3 WorldUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
@@ -23,37 +23,44 @@ enum class CAM_MOVE {
 	DOWN
 };
 
+const float def_yaw = -90.0f;
+const float def_pitch = 0.0f;
+const float def_sensitivity = 0.05f;
+const float def_movement_speed = 0.5f;
+
 class Camera : public Subject
 {
 private:
 	std::vector<ShaderObserver*> shaderObservers;
 
-public:
-
-	// Stores the main vectors of the camera
 	glm::vec3 Position;
-	glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
-	glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);
-	glm::vec3 Right = glm::vec3(0.0f, 1.0f, 0.0f);
-	glm::mat4 viewMat;
-	glm::mat4 projMat;
+	glm::vec3 Orientation;
+	glm::vec3 Up;
+	glm::vec3 Right;
+
 	GLfloat MovementSpeed;
-	GLfloat Sensitivity = 0.05f;
+	GLfloat Sensitivity;
 	GLfloat pitch;
 	GLfloat yaw;
 
+	glm::mat4 viewMatrix;
+	glm::mat4 projectionMatrix;
+
+	void updateCameraVectors();
+	void setViewMatrix();
+
+	virtual void notify();
+public:
 	// Camera constructor to set up initial values
 	Camera(int width, int height, glm::vec3 position);
 
-	void UpdateShader(GLuint shaderProg);
-	void CalcOrientation();
-	void CalcView();
-	void Move(CAM_MOVE direction);
-	void Rotate(double xoffset, double yoffset, GLboolean constrainPitch = true);
-	
+	void processKeyboardMovement(CAM_MOVE direction);
+	void processMouseMovement(double xoffset, double yoffset, GLboolean constrainPitch = true);
+
+	//void UpdateShader(GLuint shaderProg);
 
 	//Observer functions
 	virtual void addListener(Observer* observer);
 	virtual void deleteListener(Observer* observer);
-	virtual void notify();
+
 };

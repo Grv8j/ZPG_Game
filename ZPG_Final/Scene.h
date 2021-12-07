@@ -2,6 +2,7 @@
 #include "Object.h"
 #include "Camera.h"
 #include <vector>
+
 class Scene
 {
 private:

@@ -4,89 +4,103 @@
 
 Camera::Camera(int width, int height, glm::vec3 position)
 {
-	Position = position;
-	yaw = -90.0f;
-	pitch = 0.0f;
-	MovementSpeed = 0.1f;
-	viewMat = glm::lookAt(Position, Position + Orientation, WorldUp);
-	projMat = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 100.0f);
-	CalcOrientation();
+	this->Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
+	this->Up = glm::vec3(0.0f, 1.0f, 0.0f);
+	this->Right = glm::vec3(0.0f, 1.0f, 0.0f);
+	this->Position = position;
+
+	this->yaw = def_yaw;
+	this->pitch = def_pitch;
+	this->MovementSpeed = def_movement_speed;
+	this->Sensitivity = def_sensitivity;
+
+
+	this->setViewMatrix();
+	this->projectionMatrix = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 100.0f);
+
+	this->updateCameraVectors();
 }
 
+/*
 void Camera::UpdateShader(GLuint shaderProg) {
 	GLint idViewMat = glGetUniformLocation(shaderProg, "viewMatrix");
 	GLint idProjMat = glGetUniformLocation(shaderProg, "projectionMatrix");
 
-	glUniformMatrix4fv(idViewMat, 1, GL_FALSE, &viewMat[0][0]);
-	glUniformMatrix4fv(idProjMat, 1, GL_FALSE, &projMat[0][0]);
+	glUniformMatrix4fv(idViewMat, 1, GL_FALSE, &this->viewMatrix[0][0]);
+	glUniformMatrix4fv(idProjMat, 1, GL_FALSE, &this->projectionMatrix[0][0]);
 
 }
+*/
 
-void Camera::CalcOrientation() {
+void Camera::updateCameraVectors() {
 	glm::vec3 front;
-	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	front.y = sin(glm::radians(pitch));
-	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	Orientation = glm::normalize(front);
+	front.x = cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
+	front.y = sin(glm::radians(this->pitch));
+	front.z = sin(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));
+	this->Orientation = glm::normalize(front);
+
 	// also re-calculate the Right and Up vector
-	Right = glm::normalize(glm::cross(Orientation, WorldUp));  // normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
-	Up = glm::normalize(glm::cross(Right, Orientation));
+	this->Right = glm::normalize(glm::cross(this->Orientation, WorldUp));  // normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
+	this->Up = glm::normalize(glm::cross(this->Right, this->Orientation));
 }
 
-void Camera::CalcView() {
-	viewMat = glm::lookAt(Position, Position + Orientation, WorldUp);
-	this->notify();
-}
 
-void Camera::Move(CAM_MOVE direction)
+void Camera::processKeyboardMovement(CAM_MOVE direction)
 {
-	GLfloat velocity = MovementSpeed;
+	GLfloat velocity = this->MovementSpeed;
 	printf("direction %d\n", direction);
 	switch (direction)
 	{
 		case CAM_MOVE::FORWARD:
-			Position += Orientation * velocity;
+			this->Position += this->Orientation * velocity;
 			break;
 
 		case CAM_MOVE::BACKWARD:
-			Position -= Orientation * velocity;
+			this->Position -= this->Orientation * velocity;
 			break;
 
 		case CAM_MOVE::LEFT:
-			Position -= Right * velocity;
+			this->Position -= this->Right * velocity;
 			break;
 
 		case CAM_MOVE::RIGHT:
-			Position += Right * velocity;
+			this->Position += this->Right * velocity;
 			break;
 
 		case CAM_MOVE::UP:
-			Position += Up * velocity;
+			this->Position += this->Up * velocity;
 			break;
 
 		case CAM_MOVE::DOWN:
-			Position -= Up * velocity;
+			this->Position -= this->Up * velocity;
 			break;	
 	}
 
-	CalcView();
+	this->setViewMatrix();
+	this->notify();
 }
 
-void Camera::Rotate(double xoffset, double yoffset, GLboolean constrainPitch) {
-	yaw += xoffset * Sensitivity;
-	pitch -= yoffset * Sensitivity;
+void Camera::setViewMatrix()
+{
+	this->viewMatrix = glm::lookAt(this->Position, this->Position + this->Orientation, WorldUp);
+}
+
+void Camera::processMouseMovement(double xoffset, double yoffset, GLboolean constrainPitch) {
+	this->yaw += xoffset * this->Sensitivity;
+	this->pitch -= yoffset * this->Sensitivity;
 
 	// make sure that when pitch is out of bounds, screen doesn't get flipped
 	if (constrainPitch)
 	{
-		if (pitch > 89.0f)
-			pitch = 89.0f;
-		if (pitch < -89.0f)
-			pitch = -89.0f;
+		if (this->pitch > 89.0f)
+			this->pitch = 89.0f;
+		if (this->pitch < -89.0f)
+			this->pitch = -89.0f;
 	}
 
-	CalcOrientation();
-	CalcView();
+	this->updateCameraVectors();
+	this->setViewMatrix();
+	this->notify();
 }
 
 void Camera::addListener(Observer* observer)
@@ -103,6 +117,6 @@ void Camera::notify()
 {
 	for (ShaderObserver* o : this->shaderObservers)
 	{
-		o->update(this->viewMat, this->projMat, this->Position);
+		o->update(this->viewMatrix, this->projectionMatrix, this->Position);
 	}
 }

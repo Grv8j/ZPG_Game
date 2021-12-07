@@ -10,33 +10,33 @@ void EngineController::key_callback(GLFWwindow* window, int key, int scancode, i
 		switch (key)
 		{
 			case GLFW_KEY_W:
-				Engine::getInstance()->getScene()->getCurrentCam()->Move(CAM_FORWARD);
+				Engine::getInstance()->getScene()->getCurrentCam()->processKeyboardMovement(CAM_MOVE::FORWARD);
 				printf("move forwards");
 				break;
 
 			case GLFW_KEY_S:
-				Engine::getInstance()->getScene()->getCurrentCam()->Move(CAM_BACKWARD);
+				Engine::getInstance()->getScene()->getCurrentCam()->processKeyboardMovement(CAM_MOVE::BACKWARD);
 				printf("move backwards");
 				break;
 
 			case GLFW_KEY_A:
-				Engine::getInstance()->getScene()->getCurrentCam()->Move(CAM_LEFT);
+				Engine::getInstance()->getScene()->getCurrentCam()->processKeyboardMovement(CAM_MOVE::LEFT);
 				printf("move left");
 				break;
 
 			case GLFW_KEY_D:
-				Engine::getInstance()->getScene()->getCurrentCam()->Move(CAM_RIGHT);
+				Engine::getInstance()->getScene()->getCurrentCam()->processKeyboardMovement(CAM_MOVE::RIGHT);
 				printf("move right");
 				break;
 
 
 			case GLFW_KEY_SPACE:
-				Engine::getInstance()->getScene()->getCurrentCam()->Move(CAM_UP);
+				Engine::getInstance()->getScene()->getCurrentCam()->processKeyboardMovement(CAM_MOVE::UP);
 				printf("move up");
 				break;
 
 			case GLFW_KEY_LEFT_CONTROL:
-				Engine::getInstance()->getScene()->getCurrentCam()->Move(CAM_DOWN);
+				Engine::getInstance()->getScene()->getCurrentCam()->processKeyboardMovement(CAM_MOVE::DOWN);
 				printf("move down");
 				break;
 		}
@@ -80,7 +80,7 @@ void EngineController::cursor_callback(GLFWwindow* window, double x, double y)
 
 	glfwSetCursorPos(Engine::getInstance()->getWindow()->getWindow(), (Engine::getInstance()->getWindow()->getWidth() / 2), (Engine::getInstance()->getWindow()->getHeight() / 2));
 
-	Engine::getInstance()->getScene()->getCurrentCam()->Rotate(xmove, ymove);
+	Engine::getInstance()->getScene()->getCurrentCam()->processMouseMovement(xmove, ymove);
 }
 
 void EngineController::button_callback(GLFWwindow* window, int button, int action, int mode)

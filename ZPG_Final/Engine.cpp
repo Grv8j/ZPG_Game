@@ -1,8 +1,8 @@
 #include "Engine.h"
 #include "Shaders/Fragment_shader.h"
 #include "Shaders/Vertex_shader.h"
-#include "Shaders/ShaderProg.h"
-#include "Shaders/ShaderLoader.h"
+#include "Shader.h"
+#include "ShaderLoader.h"
 #include "Object.h"
 #include "Utilities/MatrixHandler.h"
 #include "Camera.h"
@@ -93,10 +93,10 @@ void Engine::startRendering() {
 
 
 
-	ShaderProg* colSp = new ShaderProg(colShID);
-	ShaderProg* constSp = new ShaderProg(constShID);
-	ShaderProg* lambSp = new ShaderProg(lambertShID);
-	ShaderProg* phongSp = new ShaderProg(phongShID);
+	Shader* colSp = new Shader(colShID);
+	Shader* constSp = new Shader(constShID);
+	Shader* lambSp = new Shader(lambertShID);
+	Shader* phongSp = new Shader(phongShID);
 
 
 
@@ -204,16 +204,7 @@ void Engine::onKey(int key, int scancode, int action, int mods) {
 	}
 	return;
 }
-void Engine::onMove(double x, double y) {
-	printf("move %f %f \n", x, y);
-	double xmove, ymove;
-	xmove = x - (window->getWidth() / 2);
-	ymove = y - (window->getHeight() / 2);
 
-	glfwSetCursorPos(window->getWindow(), (window->getWidth() / 2), (window->getHeight() / 2));
-
-	this->currentScene->getCurrentCam()->Rotate(xmove, ymove);
-}
 
 Engine::Engine() {
 	this->controller = new EngineController();
@@ -287,33 +278,3 @@ EngineController* Engine::getController()
 {
 	return this->controller;
 }
-
-/*
-void Engine::processHeldKeys()
-{
-	if (glfwGetKey(window->getWindow(), GLFW_KEY_W) == GLFW_PRESS)
-	{
-		currentScene->getCurrentCam()->Move(CAM_FORWARD);
-	}
-	if (glfwGetKey(window->getWindow(), GLFW_KEY_A) == GLFW_PRESS)
-	{
-		currentScene->getCurrentCam()->Move(CAM_LEFT);
-	}
-	if (glfwGetKey(window->getWindow(), GLFW_KEY_S) == GLFW_PRESS)
-	{
-		currentScene->getCurrentCam()->Move(CAM_BACKWARD);
-	}
-	if (glfwGetKey(window->getWindow(), GLFW_KEY_D) == GLFW_PRESS)
-	{
-		currentScene->getCurrentCam()->Move(CAM_RIGHT);
-	}
-	if (glfwGetKey(window->getWindow(), GLFW_KEY_SPACE) == GLFW_PRESS)
-	{
-		currentScene->getCurrentCam()->Move(CAM_UP);
-	}
-	if (glfwGetKey(window->getWindow(), GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
-	{
-		currentScene->getCurrentCam()->Move(CAM_DOWN);
-	}
-}
-*/
