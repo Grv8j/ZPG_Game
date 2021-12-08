@@ -5,7 +5,8 @@
 #include "VAO.h"
 #include "VBO.h"
 
-class Model {
+class Model
+{
 private:
     int pointNo;
     VAO* vao;

@@ -9,7 +9,6 @@
 #include <vector>
 
 #include "Subject.h"
-
 #include "Shader.h"
 
 const glm::vec3 WorldUp = glm::vec3(0.0f, 1.0f, 0.0f);

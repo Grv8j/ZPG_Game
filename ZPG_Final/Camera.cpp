@@ -21,17 +21,6 @@ Camera::Camera(int width, int height, glm::vec3 position)
 	this->updateCameraVectors();
 }
 
-/*
-void Camera::UpdateShader(GLuint shaderProg) {
-	GLint idViewMat = glGetUniformLocation(shaderProg, "viewMatrix");
-	GLint idProjMat = glGetUniformLocation(shaderProg, "projectionMatrix");
-
-	glUniformMatrix4fv(idViewMat, 1, GL_FALSE, &this->viewMatrix[0][0]);
-	glUniformMatrix4fv(idProjMat, 1, GL_FALSE, &this->projectionMatrix[0][0]);
-
-}
-*/
-
 void Camera::updateCameraVectors() {
 	glm::vec3 front;
 	front.x = cos(glm::radians(this->yaw)) * cos(glm::radians(this->pitch));

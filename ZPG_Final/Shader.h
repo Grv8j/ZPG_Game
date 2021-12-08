@@ -29,7 +29,8 @@ private:
 public:
 	Shader(GLuint ID);
 	Shader(const char* vertex_shader, const char* fragment_shader);
-	void useShader();
+	void useShader(glm::mat4 transformMatrix);
 	GLuint getShaderProgram();
 	virtual void update(glm::mat4 viewMatrix, glm::mat4 projectionMatrix, glm::vec3 cameraPosition);
+	void applyLight(glm::vec3 lightPosition);
 };

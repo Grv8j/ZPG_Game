@@ -34,7 +34,7 @@
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="ShaderObserver.h" />
     <ClInclude Include="Subject.h" />
-    <ClInclude Include="Utilities\MatrixHandler.h" />
+    <ClInclude Include="Transformation.h" />
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />
     <ClInclude Include="Window.h" />
@@ -53,7 +53,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
-    <ClCompile Include="Utilities\MatrixHandler.cpp" />
+    <ClCompile Include="Transformation.cpp" />
     <ClCompile Include="VAO.cpp" />
     <ClCompile Include="VBO.cpp" />
     <ClCompile Include="Window.cpp" />

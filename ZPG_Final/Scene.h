@@ -7,15 +7,15 @@ class Scene
 {
 private:
 	std::vector <Object*> objects;
-	std::vector <Camera*> cameras;
+	Camera* camera;
 	glm::vec3 lightPos;
-	Camera* currentCam;
 public:
 	Scene();
 	void Draw(GLfloat timeDelta);
-	Camera* getCurrentCam();
-	void AddCamera(Camera* cam, GLboolean setCurrent = true);
-	void AddObject(Object* obj);
+	void setCamera(Camera* camera);
+	void AddObject(Object* object);
 	void SetLightPos(glm::vec3 lightPos);
+
+	Camera* getCamera();
 };
 

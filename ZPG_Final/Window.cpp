@@ -22,7 +22,7 @@ Window::Window(const int window_width, const int window_height, const char* titl
 	glfwMakeContextCurrent(this->window);
 	glfwSwapInterval(1);
 
-	glfwSetWindowUserPointer(window, this);
+	glfwSetWindowUserPointer(this->window, this);
 	
 	glfwSetKeyCallback(this->window, [](GLFWwindow* window, int key, int scancode, int action, int mods) -> void
 		{

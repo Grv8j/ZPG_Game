@@ -1,41 +1,27 @@
 #include "Object.h"
 
-Object::Object(Model* model, Shader* shaderProgram)
+Object::Object(Model* model, Shader* shader)
 {
 	this->model = model;
-	this->shaderProgram = shaderProgram;
-	this->rotationAngle = 0.1f;
-	this->rotationAxis = glm::vec3(0.0f, 1.0f, 0.0f);
-	this->transMat = glm::mat4(1.0f);
-	this->idModelTransform = glGetUniformLocation(this->shaderProgram->getShaderProgram(), "modelMatrix");
+	this->shader = shader;
+	this->transformation = new Transformation();
 }
 
 void Object::draw()
 {
-	shaderProgram->useShader();
-	glUniformMatrix4fv(this->idModelTransform, 1, GL_FALSE, &this->transMat[0][0]);
+	this->shader->useShader(this->transformation->getTransMatrix());
 
 	this->model->getVAO()->Bind();
-	glDrawArrays(model->getMode(), 0, model->getPointNo());
-	MatrixHandler::rotate(this->getMatRef(), this->rotationAngle, this->rotationAxis);
-
+	glDrawArrays(this->model->getMode(), 0, this->model->getPointNo());
+	this->transformation->rotate();
 }
 
 Shader* Object::getShader()
 {
-	return this->shaderProgram;
+	return this->shader;
 }
 
-glm::mat4* Object::getMatRef() {
-	return &this->transMat;
-}
-
-void Object::setRotation(GLfloat rotationAngle, glm::vec3 rotationAxis) {
-	this->rotationAxis = rotationAxis;
-	this->rotationAngle = rotationAngle;
-}
-
-void Object::setRotationAngle(GLfloat rotationAngle)
+Transformation* Object::getTransformation()
 {
-	this->rotationAngle = rotationAngle;
+	return this->transformation;
 }

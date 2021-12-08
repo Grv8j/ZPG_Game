@@ -1,20 +1,4 @@
 #include "Engine.h"
-//#include "Shaders/Fragment_shader.h"
-//#include "Shaders/Vertex_shader.h"
-//#include "Shader.h"
-//#include "ShaderLoader.h"
-//#include "Object.h"
-//#include "Utilities/MatrixHandler.h"
-//#include "Camera.h"
-//#include "Scene.h"
-//#include "Models/sphere.h"
-//#include "Models/plain.h"
-//#include "Models/suzi_flat.h"
-//#include "Models/suzi_smooth.h"
-
-//#include "ModelFactory.h"
-//#include "ShaderManager.h"
-
 
 
 Engine* Engine::instance = 0;

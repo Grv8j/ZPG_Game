@@ -10,7 +10,8 @@
 #include "SceneMaker.h"
 
 
-class Engine{
+class Engine
+{
 private:
 	static Engine* instance;
 	Engine();

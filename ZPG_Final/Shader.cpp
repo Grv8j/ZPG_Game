@@ -20,13 +20,14 @@ GLint Shader::getUniformLocation(const char* name)
 	return glGetUniformLocation(this->ID, name);
 }
 
-void Shader::useShader()
+void Shader::useShader(glm::mat4 transformMatrix)
 {
 	this->use();
 
 	glUniformMatrix4fv(getUniformLocation("viewMatrix"), 1, GL_FALSE, &this->viewMatrix[0][0]);
 	glUniformMatrix4fv(getUniformLocation("projectionMatrix"), 1, GL_FALSE, &this->projectionMatrix[0][0]);
 	glUniform3fv(getUniformLocation("cameraPos"), 1, glm::value_ptr(this->cameraPosition));
+	glUniformMatrix4fv(getUniformLocation("modelMatrix"), 1, GL_FALSE, &transformMatrix[0][0]);
 
 }
 
@@ -40,4 +41,9 @@ void Shader::update(glm::mat4 viewMatrix, glm::mat4 projectionMatrix, glm::vec3 
 	this->viewMatrix = viewMatrix;
 	this->projectionMatrix = projectionMatrix;
 	this->cameraPosition = cameraPosition;
+}
+
+void Shader::applyLight(glm::vec3 lightPosition)
+{
+	glUniform3fv(this->getUniformLocation("lightPos"), 1, glm::value_ptr(lightPosition));
 }

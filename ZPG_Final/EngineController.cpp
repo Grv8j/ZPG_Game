@@ -10,32 +10,32 @@ void EngineController::key_callback(GLFWwindow* window, int key, int scancode, i
 		switch (key)
 		{
 			case GLFW_KEY_W:
-				Engine::getInstance()->getScene()->getCurrentCam()->processKeyboardMovement(CAM_MOVE::FORWARD);
+				Engine::getInstance()->getScene()->getCamera()->processKeyboardMovement(CAM_MOVE::FORWARD);
 				printf("move forwards");
 				break;
 
 			case GLFW_KEY_S:
-				Engine::getInstance()->getScene()->getCurrentCam()->processKeyboardMovement(CAM_MOVE::BACKWARD);
+				Engine::getInstance()->getScene()->getCamera()->processKeyboardMovement(CAM_MOVE::BACKWARD);
 				printf("move backwards");
 				break;
 
 			case GLFW_KEY_A:
-				Engine::getInstance()->getScene()->getCurrentCam()->processKeyboardMovement(CAM_MOVE::LEFT);
+				Engine::getInstance()->getScene()->getCamera()->processKeyboardMovement(CAM_MOVE::LEFT);
 				printf("move left");
 				break;
 
 			case GLFW_KEY_D:
-				Engine::getInstance()->getScene()->getCurrentCam()->processKeyboardMovement(CAM_MOVE::RIGHT);
+				Engine::getInstance()->getScene()->getCamera()->processKeyboardMovement(CAM_MOVE::RIGHT);
 				printf("move right");
 				break;
 
 			case GLFW_KEY_SPACE:
-				Engine::getInstance()->getScene()->getCurrentCam()->processKeyboardMovement(CAM_MOVE::UP);
+				Engine::getInstance()->getScene()->getCamera()->processKeyboardMovement(CAM_MOVE::UP);
 				printf("move up");
 				break;
 
 			case GLFW_KEY_LEFT_CONTROL:
-				Engine::getInstance()->getScene()->getCurrentCam()->processKeyboardMovement(CAM_MOVE::DOWN);
+				Engine::getInstance()->getScene()->getCamera()->processKeyboardMovement(CAM_MOVE::DOWN);
 				printf("move down");
 				break;
 
@@ -89,7 +89,7 @@ void EngineController::cursor_callback(GLFWwindow* window, double x, double y)
 
 	glfwSetCursorPos(Engine::getInstance()->getWindow()->getWindow(), (Engine::getInstance()->getWindow()->getWidth() / 2), (Engine::getInstance()->getWindow()->getHeight() / 2));
 
-	Engine::getInstance()->getScene()->getCurrentCam()->processMouseMovement(xmove, ymove);
+	Engine::getInstance()->getScene()->getCamera()->processMouseMovement(xmove, ymove);
 }
 
 void EngineController::button_callback(GLFWwindow* window, int button, int action, int mode)
