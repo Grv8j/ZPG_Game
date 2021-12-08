@@ -21,5 +21,6 @@ public:
 	Shader* getShader();
 	glm::mat4* getMatRef();
 	void setRotation(GLfloat rotationAngle, glm::vec3 rotationAxis);
+	void setRotationAngle(GLfloat rotationAngle);
 };
 

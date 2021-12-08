@@ -1,19 +1,19 @@
 #include "Engine.h"
 //#include "Shaders/Fragment_shader.h"
 //#include "Shaders/Vertex_shader.h"
-#include "Shader.h"
-#include "ShaderLoader.h"
-#include "Object.h"
-#include "Utilities/MatrixHandler.h"
-#include "Camera.h"
-#include "Scene.h"
+//#include "Shader.h"
+//#include "ShaderLoader.h"
+//#include "Object.h"
+//#include "Utilities/MatrixHandler.h"
+//#include "Camera.h"
+//#include "Scene.h"
 //#include "Models/sphere.h"
 //#include "Models/plain.h"
 //#include "Models/suzi_flat.h"
 //#include "Models/suzi_smooth.h"
 
-#include "ModelFactory.h"
-#include "ShaderManager.h"
+//#include "ModelFactory.h"
+//#include "ShaderManager.h"
 
 
 
@@ -41,121 +41,12 @@ void Engine::init() {
 	this->print_info();
 }
 
-void Engine::startRendering() {
+void Engine::startRendering()
+{
+	glfwSetCursorPos(this->window->getWindow(), (this->window->getWidth() / 2), (this->window->getHeight() / 2));
 
-	const float points1[] = {
-   -.4f, -.7f, .5f, 		1, 1, .4f, 
-   -.4f,  .3f, .5f, 		1, 1, .4f, 
-	.4f, -.7f, .5f, 		1, 1, .4f, 
-	.4f,  .3f, .5f, 		1, 1, .4f, 
-
-	.4f, -.7f, -.5f, 		0.85f, 0.85f, .3f, 
-	.4f,  .3f, -.5f, 		0.85f, 0.85f, .3f, 
-
-	-.4f, -.7f, -.5f, 		1, 1, .4f, 
-	-.4f,  .3f, -.5f, 		1, 1, .4f, 
-
-	-.4f, -.7f, .5f, 		0.85f, 0.85f, .3f, 
-   -.4f,  .3f, .5f, 		0.85f, 0.85f, .3f, 
-	};
-	const float points2[] = {
-   -.6f,  .3f, .75f, 		1, 0, 0, 
-	.6f,  .3f, .75f, 		.7f, 0, 0,
-	.0f , .9f, .45f, 	1, 0, 0, 
-	.6f,  .3f, -.75f, 	1, 0, 0, 
-	.0f , .9f, -.45f, 	.7f, 0, 0,
-	-.6f,  .3f, -.75f, 	1, 0, 0, 
-	.0f , .9f, .45f, 	1, 0, 0, 
-	-.6f,  .3f, .75f, 	.7f, 0, 0
-	};
-	const float points3[] = {
-	.1f, -.7f, -.51f,	.4f, .2f, .0f, 
-	.1f, -.2f, -.51f,	.4f, .2f, .0f, 
-	.3f, -.7f, -.51f, 	.4f, .2f, .0f, 
-	.3f, -.2f, -.51f, 	.4f, .2f, .0f, 
-	};
-
-	glm::vec3 yAxis = glm::vec3(0.0f, 1.0f, 0.0f);
-	glm::vec3 xAxis = glm::vec3(1.0f, 0.0f, 0.0f);
-	glm::vec3 zAxis = glm::vec3(0.0f, 0.0f, 1.0f);
-
-	glfwSetCursorPos(this->window->getWindow(), (window->getWidth() / 2), (window->getHeight() / 2));
-
-
-
-
-
-
-
-	//Shader* colSp = new Shader("./Shaders/vertex_shader.glsl", "./Shaders/fragment_shader.glsl");
-	//Shader* constSp = new Shader("./Shaders/vertex_shader_constant.glsl", "./Shaders/fragment_shader_constant.glsl");
-	//Shader* lambSp = new Shader("./Shaders/vertex_shader_lambert.glsl", "./Shaders/fragment_shader_lambert.glsl");
-	//Shader* phongSp = new Shader("./Shaders/vertex_shader_phong.glsl", "./Shaders/fragment_shader_phong.glsl");
-
-
-	/*
-	Object* cube = new Object(new Model(points1, 10 * (3 + 3), 6, 3, 2, GL_TRIANGLE_STRIP), constSp);
-	Object* roof = new Object(new Model(points2, 8  * (3 + 3), 6, 3, 2, GL_TRIANGLE_STRIP), colSp);
-	Object* sphereO = new Object(new Model(sphere, 2880 * (3 + 3), 6), colSp);
-	sphereO->setRotation(0.8f, glm::vec3(.0f, .0f, 1.0f));
-	MatrixHandler::translate(sphereO->getMatRef(), glm::vec3(0.0f, 0.0f, 10.0f));
-
-	Object* plainO = new Object(new Model(plain, 6 * (3 + 3), 6), colSp);
-	MatrixHandler::scale(plainO->getMatRef(), glm::vec3(.3f, .3f, .3f));
-	MatrixHandler::translate(plainO->getMatRef(), glm::vec3(0.0f, -1.0f, 5.0f));
-
-
-
-	Object* suziFlatO = new Object(new Model(suziFlat, 2904 * (3 + 3), 6, 3, 2), lambSp);
-	suziFlatO->setRotation(0.02f, glm::vec3(.0f, 1.0f, .0f));
-	MatrixHandler::translate(suziFlatO->getMatRef(), glm::vec3(5.0f, 0.0f, 2.0f));
-
-	Object* suziSmoothO = new Object(new Model(suziSmooth, 2904 * (3 + 3), 6, 3, 2), phongSp);
-	suziSmoothO->setRotation(-0.02f, glm::vec3(.0f, 1.0f, .0f));
-	MatrixHandler::translate(suziSmoothO->getMatRef(), glm::vec3(5.0f, 0.0f, 8.0f));
-	*/
-	
-	ShaderManager* sm = ShaderManager::getInstance();
-
-
-	Camera* camera = new Camera(window->getWidth(), window->getHeight(), glm::vec3(0.0f, 0.0f, 5.0f));
-	//camera->addListener(constSp);
-	//camera->addListener(colSp);
-	camera->addListener(sm->getShader(SHADER_TYPE::LAMBERT));
-	camera->addListener(sm->getShader(SHADER_TYPE::PHONG));
-
-	/*
-	this->currentScene = new Scene();
-	currentScene->AddCamera(camera);
-	currentScene->AddObject(cube);
-	currentScene->AddObject(roof);
-	currentScene->AddObject(sphereO);
-	currentScene->AddObject(plainO);
-	currentScene->AddObject(suziFlatO);
-	currentScene->AddObject(suziSmoothO);
-	*/
-
-	ModelFactory* mf = new ModelFactory();
-
-	Scene* scenaNemca = new Scene();
-	Object* sphereO1 = new Object(mf->getModel(MODEL_TYPE::SPHERE), sm->getShader(SHADER_TYPE::PHONG));
-		MatrixHandler::translate(sphereO1->getMatRef(), glm::vec3(-2.0f, 0.0f, 0.0f));
-	Object* sphereO2 = new Object(mf->getModel(MODEL_TYPE::SPHERE), sm->getShader(SHADER_TYPE::PHONG));
-		MatrixHandler::translate(sphereO2->getMatRef(), glm::vec3(2.0f, 0.0f, 0.0f));
-	Object* sphereO3 = new Object(mf->getModel(MODEL_TYPE::SPHERE), sm->getShader(SHADER_TYPE::PHONG));
-		MatrixHandler::translate(sphereO3->getMatRef(), glm::vec3(0.0f, 2.0f, 0.0f));
-	Object* sphereO4 = new Object(mf->getModel(MODEL_TYPE::SPHERE), sm->getShader(SHADER_TYPE::PHONG));
-		MatrixHandler::translate(sphereO4->getMatRef(), glm::vec3(0.0f, -2.0f, 0.0f));
-	scenaNemca->AddObject(sphereO1);
-	scenaNemca->AddObject(sphereO2);
-	scenaNemca->AddObject(sphereO3);
-	scenaNemca->AddObject(sphereO4);
-	scenaNemca->SetLightPos(glm::vec3(.0f, .0f, .0f));
-	scenaNemca->AddCamera(camera);
-	currentScene = scenaNemca;
-
-	
-
+	SceneMaker* sceneMaker = new SceneMaker();
+	sceneMaker->MakeScenes();
 
 	while (!this->window->shouldClose()) {
 		float currentFrame = glfwGetTime();
@@ -164,8 +55,7 @@ void Engine::startRendering() {
 
 		// clear color and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		currentScene->Draw(deltaTime);
-		//processHeldKeys();
+		this->actaulScene->Draw(deltaTime);
 
 		// update other events like input handling
 		glfwPollEvents();
@@ -178,35 +68,14 @@ void Engine::startRendering() {
 	exit(EXIT_SUCCESS);
 }
 
-Window* Engine::getWindow() {
+Window* Engine::getWindow()
+{
 	return this->window;
 }
 
-void Engine::onClick(int button, int action, double x, double y) {
-	if (action == GLFW_PRESS) {
-		printf("press %d %d %f %f\n", button, action, x, y);
-	}
-	if (action == GLFW_RELEASE) {
-		printf("release %d %d %f %f\n", button, action, x, y);
-	}
-	return;
-}
-void Engine::onKey(int key, int scancode, int action, int mods) {
-	if (action == GLFW_PRESS) {
-		printf("press %d %d %d %d\n", key, scancode, action, mods);
-	}
-	if (action == GLFW_RELEASE) {
-		printf("release %d %d %d %d\n", key, scancode, action, mods);
-	}
-	if (action == GLFW_PRESS && key == GLFW_KEY_ESCAPE) {
-		printf("Zaviram\n");
-		glfwSetWindowShouldClose(window->getWindow(), GLFW_TRUE);
-	}
-	return;
-}
 
-
-Engine::Engine() {
+Engine::Engine()
+{
 	this->controller = new EngineController();
 }
 
@@ -271,10 +140,45 @@ Engine* Engine::getInstance()
 
 Scene* Engine::getScene()
 {
-	return this->currentScene;
+	return this->actaulScene;
 }
 
 EngineController* Engine::getController()
 {
 	return this->controller;
+}
+
+void Engine::addScene(Scene* scene)
+{
+	this->scenes.push_back(scene);
+
+	if (this->scenes.size() == 1)
+	{
+		this->actaulScene = this->scenes[0];
+		this->currentScenePosition = 0;
+	}
+}
+
+void Engine::nextScene()
+{
+	this->currentScenePosition++;
+
+	if (this->currentScenePosition == this->scenes.size())
+	{
+		this->currentScenePosition = 0;
+	}
+
+	this->actaulScene = this->scenes[this->currentScenePosition];
+}
+
+void Engine::previousScene()
+{
+	this->currentScenePosition--;
+
+	if (this->currentScenePosition == -1)
+	{
+		this->currentScenePosition = this->scenes.size() - 1;
+	}
+
+	this->actaulScene = this->scenes[this->currentScenePosition];
 }

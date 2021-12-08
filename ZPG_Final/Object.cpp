@@ -34,3 +34,8 @@ void Object::setRotation(GLfloat rotationAngle, glm::vec3 rotationAxis) {
 	this->rotationAxis = rotationAxis;
 	this->rotationAngle = rotationAngle;
 }
+
+void Object::setRotationAngle(GLfloat rotationAngle)
+{
+	this->rotationAngle = rotationAngle;
+}

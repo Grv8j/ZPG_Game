@@ -29,7 +29,6 @@ void EngineController::key_callback(GLFWwindow* window, int key, int scancode, i
 				printf("move right");
 				break;
 
-
 			case GLFW_KEY_SPACE:
 				Engine::getInstance()->getScene()->getCurrentCam()->processKeyboardMovement(CAM_MOVE::UP);
 				printf("move up");
@@ -38,6 +37,16 @@ void EngineController::key_callback(GLFWwindow* window, int key, int scancode, i
 			case GLFW_KEY_LEFT_CONTROL:
 				Engine::getInstance()->getScene()->getCurrentCam()->processKeyboardMovement(CAM_MOVE::DOWN);
 				printf("move down");
+				break;
+
+			case GLFW_KEY_N:
+				Engine::getInstance()->nextScene();
+				printf("next scene");
+				break;
+
+			case GLFW_KEY_B:
+				Engine::getInstance()->previousScene();
+				printf("previous scene");
 				break;
 		}
 	}

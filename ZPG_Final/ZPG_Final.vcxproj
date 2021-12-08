@@ -28,6 +28,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneMaker.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="ShaderManager.h" />
@@ -48,6 +49,7 @@
     <ClCompile Include="ModelPrototypes.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneMaker.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
