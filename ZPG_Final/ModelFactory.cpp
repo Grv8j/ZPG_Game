@@ -20,6 +20,15 @@ Model* ModelFactory::getModel(MODEL_TYPE type)
 
 		case MODEL_TYPE::SUZI_SMOOTH:
 			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::SUZI_SMOOTH);
+
+		case MODEL_TYPE::BUSHES:
+			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::BUSHES);
+
+		case MODEL_TYPE::GIFT:
+			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::GIFT);
+
+		case MODEL_TYPE::TREE:
+			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::TREE);
 	}
 
 }
