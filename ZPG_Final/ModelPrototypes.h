@@ -5,13 +5,19 @@
 #include "Models/sphere.h"
 #include "Models/suzi_flat.h"
 #include "Models/suzi_smooth.h"
+#include "Models/Bushes.h"
+#include "Models/gift.h"
+#include "Models/tree.h"
 
 enum class MODEL_TYPE_PROTOTYPE
 {
 	PLAIN,
 	SPHERE,
 	SUZI_FLAT,
-	SUZI_SMOOTH
+	SUZI_SMOOTH,
+	BUSHES,
+	GIFT,
+	TREE
 };
 
 
@@ -22,6 +28,9 @@ private:
 	Model* sphere_prototype;
 	Model* suzi_flat_prototype;
 	Model* suzi_smooth_prototype;
+	Model* bushes_prototype;
+	Model* gift_prototype;
+	Model* tree_prototype;
 
 public:
 	Model* getClone(MODEL_TYPE_PROTOTYPE type);

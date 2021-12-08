@@ -35,5 +35,29 @@ Model* ModelPrototypes::getClone(MODEL_TYPE_PROTOTYPE type)
 			}
 
 			return new Model(*this->suzi_smooth_prototype);
+
+		case MODEL_TYPE_PROTOTYPE::BUSHES:
+			if (this->bushes_prototype == nullptr)
+			{
+				this->bushes_prototype = new Model(bushes, 8730 * 6, 6, 3, 2);
+			}
+
+			return new Model(*this->bushes_prototype);
+
+		case MODEL_TYPE_PROTOTYPE::GIFT:
+			if (this->gift_prototype == nullptr)
+			{
+				this->gift_prototype = new Model(gift, 66624 * 6, 6, 3, 2);
+			}
+
+			return new Model(*this->gift_prototype);
+
+		case MODEL_TYPE_PROTOTYPE::TREE:
+			if (this->tree_prototype == nullptr)
+			{
+				this->tree_prototype = new Model(tree, 92814 * 6, 6, 3, 2);
+			}
+
+			return new Model(*this->tree_prototype);
 	}
 }
