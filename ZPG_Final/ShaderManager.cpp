@@ -29,7 +29,25 @@ Shader* ShaderManager::getShader(SHADER_TYPE type)
 			}
 
 			return this->phong;
+
+		case SHADER_TYPE::PHONG_TEX:
+			if (this->phong_tex == nullptr)
+			{
+				this->phong_tex = new Shader("./Shaders/vertex_shader_phong_texture.glsl", "./Shaders/fragment_shader_phong_texture.glsl");
+			}
+
+			return this->phong_tex;
+
+		case SHADER_TYPE::CLASSIC_TEX:
+			if (this->classic_tex == nullptr)
+			{
+				this->classic_tex = new Shader("./Shaders/vertex_shader_texture.glsl", "./Shaders/fragment_shader_texture.glsl");
+			}
+
+			return this->classic_tex;
 	}
+
+	return nullptr;
 }
 
 ShaderManager* ShaderManager::getInstance()
@@ -47,4 +65,6 @@ ShaderManager::ShaderManager()
 	this->constant = nullptr;
 	this->lambert = nullptr;
 	this->phong = nullptr;
+	this->phong_tex = nullptr;
+	this->classic_tex = nullptr;
 }

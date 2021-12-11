@@ -92,20 +92,36 @@ void Camera::processMouseMovement(double xoffset, double yoffset, GLboolean cons
 	this->notify();
 }
 
-void Camera::addListener(Observer* observer)
+void Camera::addShaderListener(Observer* observer)
 {
 	this->shaderObservers.push_back((ShaderObserver*)observer);
 }
 
-void Camera::deleteListener(Observer* observer)
+void Camera::deleteShaderListener(Observer* observer)
 {
 	this->shaderObservers.erase(std::remove(this->shaderObservers.begin(), this->shaderObservers.end(), (ShaderObserver*)observer), this->shaderObservers.end());
 }
 
+void Camera::addSkyboxListener(Observer* observer)
+{
+	this->skyboxObservers.push_back((SkyboxObserver*)observer);
+}
+
+void Camera::deleteSkyboxListener(Observer* observer)
+{
+	this->skyboxObservers.erase(std::remove(this->skyboxObservers.begin(), this->skyboxObservers.end(), (SkyboxObserver*)observer), this->skyboxObservers.end());
+}
+
 void Camera::notify()
 {
-	for (ShaderObserver* o : this->shaderObservers)
+	for (ShaderObserver* sh : this->shaderObservers)
 	{
-		o->update(this->viewMatrix, this->projectionMatrix, this->Position);
+		sh->update(this->viewMatrix, this->projectionMatrix, this->Position);
+	}
+
+
+	for (SkyboxObserver* so : this->skyboxObservers)
+	{
+		so->update(this->Position);
 	}
 }

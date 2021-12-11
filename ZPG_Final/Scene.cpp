@@ -8,9 +8,15 @@ Scene::Scene()
 
 void Scene::Draw(GLfloat timeDelta)
 {
+	if (this->skybox != nullptr)
+	{
+		this->skybox->draw();
+	}
+
 	for (Object* element : this->objects)
 	{
 		element->getShader()->applyLight(this->lightPos);
+		element->getShader()->useShader();
 		element->draw();
 	}
 }
@@ -33,4 +39,10 @@ void Scene::AddObject(Object* object)
 void Scene::SetLightPos(glm::vec3 lightPos)
 {
 	this->lightPos = lightPos;
+}
+
+void Scene::setSkybox(Skybox* skybox)
+{
+	this->skybox = skybox;
+	this->camera->addSkyboxListener(this->skybox);
 }

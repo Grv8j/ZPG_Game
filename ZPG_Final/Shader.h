@@ -25,12 +25,13 @@ private:
 	glm::vec3 cameraPosition;
 
 	void use() const;
-	GLint getUniformLocation(const char* name);
 public:
 	Shader(GLuint ID);
 	Shader(const char* vertex_shader, const char* fragment_shader);
-	void useShader(glm::mat4 transformMatrix);
+	void useShader();
 	GLuint getShaderProgram();
 	virtual void update(glm::mat4 viewMatrix, glm::mat4 projectionMatrix, glm::vec3 cameraPosition);
 	void applyLight(glm::vec3 lightPosition);
+	GLint getUniformLocation(const char* name);
+	void applyTransform(glm::mat4 transformMatrix);
 };

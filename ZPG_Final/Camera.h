@@ -7,13 +7,14 @@
 #include<glm/gtx/rotate_vector.hpp>
 #include<glm/gtx/vector_angle.hpp>
 #include <vector>
-
 #include "Subject.h"
 #include "Shader.h"
+#include "SkyboxObserver.h"
 
 const glm::vec3 WorldUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
-enum class CAM_MOVE {
+enum class CAM_MOVE
+{
 	FORWARD,
 	BACKWARD,
 	LEFT,
@@ -31,6 +32,7 @@ class Camera : public Subject
 {
 private:
 	std::vector<ShaderObserver*> shaderObservers;
+	std::vector<SkyboxObserver*> skyboxObservers;
 
 	glm::vec3 Position;
 	glm::vec3 Orientation;
@@ -56,10 +58,11 @@ public:
 	void processKeyboardMovement(CAM_MOVE direction);
 	void processMouseMovement(double xoffset, double yoffset, GLboolean constrainPitch = true);
 
-	//void UpdateShader(GLuint shaderProg);
-
 	//Observer functions
-	virtual void addListener(Observer* observer);
-	virtual void deleteListener(Observer* observer);
+	virtual void addShaderListener(Observer* observer);
+	virtual void deleteShaderListener(Observer* observer);
+
+	virtual void addSkyboxListener(Observer* observer);
+	virtual void deleteSkyboxListener(Observer* observer);
 
 };

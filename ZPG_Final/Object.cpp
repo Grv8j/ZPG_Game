@@ -9,7 +9,13 @@ Object::Object(Model* model, Shader* shader)
 
 void Object::draw()
 {
-	this->shader->useShader(this->transformation->getTransMatrix());
+	this->shader->useShader();
+	this->shader->applyTransform(this->transformation->getTransMatrix());
+
+	if (this->model->getTexture() != nullptr)
+	{
+		this->model->getTexture()->useTexture(this->shader);
+	}
 
 	this->model->getVAO()->Bind();
 	glDrawArrays(this->model->getMode(), 0, this->model->getPointNo());

@@ -6,7 +6,9 @@ enum class SHADER_TYPE
 {
 	CONSTANT,
 	LAMBERT,
-	PHONG
+	PHONG,
+	PHONG_TEX,
+	CLASSIC_TEX
 };
 
 class ShaderManager
@@ -15,6 +17,8 @@ private:
 	Shader* constant;
 	Shader* lambert;
 	Shader* phong;
+	Shader* phong_tex;
+	Shader* classic_tex;
 
 	static ShaderManager* instance;
 	ShaderManager();

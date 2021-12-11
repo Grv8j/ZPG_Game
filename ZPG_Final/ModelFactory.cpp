@@ -29,6 +29,28 @@ Model* ModelFactory::getModel(MODEL_TYPE type)
 
 		case MODEL_TYPE::TREE:
 			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::TREE);
+
+		case MODEL_TYPE::PLAIN_TEX:
+			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::PLAIN_TEX);
+
+		case MODEL_TYPE::SKYBOX_NEGX:
+			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::PLAIN_SKYBOX_NEGX);
+
+		case MODEL_TYPE::SKYBOX_NEGY:
+			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::PLAIN_SKYBOX_NEGY);
+
+		case MODEL_TYPE::SKYBOX_NEGZ:
+			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::PLAIN_SKYBOX_NEGZ);
+
+		case MODEL_TYPE::SKYBOX_POSX:
+			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::PLAIN_SKYBOX_POSX);
+
+		case MODEL_TYPE::SKYBOX_POSY:
+			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::PLAIN_SKYBOX_POSY);
+
+		case MODEL_TYPE::SKYBOX_POSZ:
+			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::PLAIN_SKYBOX_POSZ);
 	}
 
+	return nullptr;
 }

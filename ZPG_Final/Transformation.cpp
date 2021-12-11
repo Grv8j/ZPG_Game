@@ -42,3 +42,8 @@ void Transformation::scale(glm::vec3 scaleVector)
 {
 	this->transMatrix = glm::scale(this->transMatrix, scaleVector);
 }
+
+void Transformation::reset()
+{
+	this->transMatrix = glm::mat4(1.0f);
+}
