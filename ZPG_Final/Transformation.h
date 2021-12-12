@@ -28,4 +28,6 @@ public:
 	void translate(glm::vec3 transVector);
 	void scale(glm::vec3 scaleVector);
 	void reset();
+
+	GLfloat getRotationAngle();
 };

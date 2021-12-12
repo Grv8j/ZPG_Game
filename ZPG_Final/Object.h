@@ -15,6 +15,7 @@ private:
 	Transformation* transformation;
 
 public:
+	Object();
 	Object(Model* model, Shader* shader);
 	void draw();
 

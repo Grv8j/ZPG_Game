@@ -94,5 +94,19 @@ void EngineController::cursor_callback(GLFWwindow* window, double x, double y)
 
 void EngineController::button_callback(GLFWwindow* window, int button, int action, int mode)
 {
-	if (action == GLFW_PRESS) printf("button_callback [%d,%d,%d]\n", button, action, mode);
+	if (action == GLFW_PRESS)
+	{
+		printf("button_callback [%d,%d,%d]\n", button, action, mode);
+
+		switch (button)
+		{
+			case GLFW_MOUSE_BUTTON_LEFT:
+				SceneMaker::getInstance()->AddOnClickModel(MODEL_TYPE::TREE2);
+				break;
+
+			case GLFW_MOUSE_BUTTON_RIGHT:
+				SceneMaker::getInstance()->AddOnClickModel(MODEL_TYPE::ZOMBIE);
+				break;
+		}
+	}
 }

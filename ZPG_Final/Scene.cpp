@@ -15,8 +15,9 @@ void Scene::Draw(GLfloat timeDelta)
 
 	for (Object* element : this->objects)
 	{
-		element->getShader()->applyLight(this->lightPos);
+		
 		element->getShader()->useShader();
+		element->getShader()->applyLight(this->lightPos);
 		element->draw();
 	}
 }

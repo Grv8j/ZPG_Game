@@ -28,6 +28,13 @@ enum class MODEL_TYPE_PROTOTYPE
 	PLAIN_SKYBOX_POSX,
 	PLAIN_SKYBOX_POSY,
 	PLAIN_SKYBOX_POSZ,
+
+	BAKE,
+	BAKE1024,
+	BUILDING,
+	GRASS,
+	TREE2,
+	ZOMBIE
 };
 
 
@@ -49,6 +56,13 @@ private:
 	Model* plain_skybox_posx_prototype;
 	Model* plain_skybox_posy_prototype;
 	Model* plain_skybox_posz_prototype;
+
+	Model* bake1024_prototype;
+	Model* bake_prototype;
+	Model* building_prototype;
+	Model* grass_prototype;
+	Model* tree2_prototype;
+	Model* zombie_prototype;
 
 	TextureFactory* textureFactory;
 

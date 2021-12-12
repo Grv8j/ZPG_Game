@@ -1,8 +1,20 @@
 #include "ModelFactory.h"
 
+ModelFactory* ModelFactory::instance = 0;
+
 ModelFactory::ModelFactory()
 {
 	this->model_prototypes = new ModelPrototypes();
+}
+
+ModelFactory* ModelFactory::getInstance()
+{
+	if (ModelFactory::instance == 0)
+	{
+		return instance = new ModelFactory();
+	}
+
+	return instance;
 }
 
 Model* ModelFactory::getModel(MODEL_TYPE type)
@@ -50,6 +62,24 @@ Model* ModelFactory::getModel(MODEL_TYPE type)
 
 		case MODEL_TYPE::SKYBOX_POSZ:
 			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::PLAIN_SKYBOX_POSZ);
+
+		case MODEL_TYPE::BAKE:
+			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::BAKE);
+
+		case MODEL_TYPE::BAKE1024:
+			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::BAKE1024);
+
+		case MODEL_TYPE::BUILDING:
+			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::BUILDING);
+
+		case MODEL_TYPE::GRASS:
+			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::GRASS);
+
+		case MODEL_TYPE::TREE2:
+			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::TREE2);
+
+		case MODEL_TYPE::ZOMBIE:
+			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::ZOMBIE);
 	}
 
 	return nullptr;

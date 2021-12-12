@@ -29,8 +29,9 @@ void Engine::startRendering()
 {
 	glfwSetCursorPos(this->window->getWindow(), (this->window->getWidth() / 2), (this->window->getHeight() / 2));
 
-	SceneMaker* sceneMaker = new SceneMaker();
-	sceneMaker->MakeScenes();
+	SceneMaker::getInstance()->MakeScenes();
+
+	this->actaulScene->getCamera()->notify();
 
 	while (!this->window->shouldClose()) {
 		float currentFrame = glfwGetTime();
@@ -38,7 +39,7 @@ void Engine::startRendering()
 		lastFrame = currentFrame;
 
 		// clear color and depth buffer
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		this->actaulScene->Draw(deltaTime);
 
 		// update other events like input handling
@@ -93,8 +94,10 @@ void Engine::glew_init()
 void Engine::set_opengl_options()
 {
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_STENCIL_TEST);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 	//glOrtho(-ratio, ratio, -1.f, 1.f, 1.f, -1.f);
 
 	glClearColor(0.2, 0.2, 0.2, 0.2);

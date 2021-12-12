@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Observer.h"
+//#include "Observer.h"
 
-class SkyboxObserver : public Observer
+class SkyboxObserver
 {
 public:
 	virtual ~SkyboxObserver() {};

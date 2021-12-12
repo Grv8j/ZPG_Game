@@ -11,7 +11,13 @@ enum class TEXTURE
 	NEGZ,
 	POSX,
 	POSY,
-	POSZ
+	POSZ,
+	BAKE1024,
+	BAKE,
+	BUILDING,
+	GRASS,
+	TREE,
+	ZOMBIE
 };
 
 class TextureFactory

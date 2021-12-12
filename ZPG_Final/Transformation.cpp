@@ -47,3 +47,8 @@ void Transformation::reset()
 {
 	this->transMatrix = glm::mat4(1.0f);
 }
+
+GLfloat Transformation::getRotationAngle()
+{
+	return this->rotationAngle;
+}

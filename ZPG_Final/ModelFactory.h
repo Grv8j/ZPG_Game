@@ -20,6 +20,13 @@ enum class MODEL_TYPE
 	SKYBOX_POSX,
 	SKYBOX_POSY,
 	SKYBOX_POSZ,
+
+	BAKE,
+	BAKE1024,
+	BUILDING,
+	GRASS,
+	TREE2,
+	ZOMBIE
 };
 
 
@@ -27,8 +34,11 @@ class ModelFactory
 {
 private:
 	ModelPrototypes* model_prototypes;
-public:
-	ModelFactory();
 
+	ModelFactory();
+	static ModelFactory* instance;
+
+public:
+	static ModelFactory* getInstance();
 	Model* getModel(MODEL_TYPE type);
 };

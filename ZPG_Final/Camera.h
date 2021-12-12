@@ -50,7 +50,7 @@ private:
 	void updateCameraVectors();
 	void setViewMatrix();
 
-	virtual void notify();
+	
 public:
 	// Camera constructor to set up initial values
 	Camera(int width, int height, glm::vec3 position);
@@ -59,10 +59,15 @@ public:
 	void processMouseMovement(double xoffset, double yoffset, GLboolean constrainPitch = true);
 
 	//Observer functions
-	virtual void addShaderListener(Observer* observer);
-	virtual void deleteShaderListener(Observer* observer);
+	virtual void addShaderListener(ShaderObserver* observer);
+	virtual void deleteShaderListener(ShaderObserver* observer);
 
-	virtual void addSkyboxListener(Observer* observer);
-	virtual void deleteSkyboxListener(Observer* observer);
+	virtual void addSkyboxListener(SkyboxObserver* observer);
+	virtual void deleteSkyboxListener(SkyboxObserver* observer);
 
+	virtual void notify();
+
+
+	glm::mat4 getViewMatrix();
+	glm::mat4 getProjectionMatrix();
 };

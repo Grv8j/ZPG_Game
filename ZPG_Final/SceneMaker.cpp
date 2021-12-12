@@ -1,8 +1,10 @@
 #include "SceneMaker.h"
 
+SceneMaker* SceneMaker::instance = 0;
+
 SceneMaker::SceneMaker()
 {
-	this->modelFactory = new ModelFactory();
+	this->modelFactory = ModelFactory::getInstance();
 	this->shaderManager = ShaderManager::getInstance();
 }
 
@@ -23,13 +25,36 @@ void SceneMaker::MakeScenes()
 
 	// ---------- SCENE 3 ----------//
 	Scene* with_skybox = new Scene();
+	with_skybox->SetLightPos(glm::vec3(15.0f, 50.0f, 0.0f));
 	with_skybox->setCamera(camera);
 
 	Skybox* skybox = new Skybox();
 	with_skybox->setSkybox(skybox);
 
 	Object* treet = new Object(this->modelFactory->getModel(MODEL_TYPE::TREE), this->shaderManager->getShader(SHADER_TYPE::PHONG));
-	with_skybox->AddObject(treet);
+	//with_skybox->AddObject(treet);
+
+	Object* building = new Object(this->modelFactory->getModel(MODEL_TYPE::BUILDING), this->shaderManager->getShader(SHADER_TYPE::PHONG_TEX));
+	with_skybox->AddObject(building);
+
+	Object* terrain = new Object(this->modelFactory->getModel(MODEL_TYPE::GRASS), this->shaderManager->getShader(SHADER_TYPE::PHONG_TEX));
+	terrain->getTransformation()->scale(glm::vec3(3.0f, 3.0f, 3.0f));
+	with_skybox->AddObject(terrain);
+
+	Object* tree3 = new Object(this->modelFactory->getModel(MODEL_TYPE::TREE2), this->shaderManager->getShader(SHADER_TYPE::PHONG_TEX));
+	tree3->getTransformation()->translate(glm::vec3(8.0f, 0.0f, 0.0f));
+	with_skybox->AddObject(tree3);
+
+	Object* zombie = new Object(this->modelFactory->getModel(MODEL_TYPE::ZOMBIE), this->shaderManager->getShader(SHADER_TYPE::PHONG_TEX));
+	zombie->getTransformation()->translate(glm::vec3(-8.0f, 0.0f, 0.0f));
+	with_skybox->AddObject(zombie);
+
+	Object* brick = new Object(this->modelFactory->getModel(MODEL_TYPE::BAKE), this->shaderManager->getShader(SHADER_TYPE::PHONG_TEX));
+	brick->getTransformation()->translate(glm::vec3(-10.0f, 0.0f, 5.0f));
+	with_skybox->AddObject(brick);
+
+
+
 
 	engine->addScene(with_skybox);
 
@@ -57,6 +82,7 @@ void SceneMaker::MakeScenes()
 	Object* gift = new Object(this->modelFactory->getModel(MODEL_TYPE::GIFT), this->shaderManager->getShader(SHADER_TYPE::PHONG));
 	gift->getTransformation()->scale(glm::vec3(2.0f, 2.0f, 2.0f));
 	gift->getTransformation()->translate(glm::vec3(1.0f, 0.0f, 0.0f));
+	gift->getTransformation()->setRotationAngle(0.1f);
 
 
 	Object* bush1 = new Object(this->modelFactory->getModel(MODEL_TYPE::BUSHES), this->shaderManager->getShader(SHADER_TYPE::PHONG));
@@ -104,4 +130,57 @@ void SceneMaker::MakeScenes()
 
 
 
+}
+
+void SceneMaker::AddOnClickModel(MODEL_TYPE type)
+{
+	GLbyte color[4];
+	GLfloat depth;
+	GLuint index;
+
+	auto windowGLFW = Engine::getInstance()->getWindow()->getWindow();
+
+	double xpos, ypos;
+	glfwGetCursorPos(windowGLFW, &xpos, &ypos);
+
+	GLint lx = (GLint)xpos;
+	GLint ly = (GLint)ypos;
+
+	int newy = Engine::getInstance()->getWindow()->getHeight() - ypos;
+
+	glReadPixels(xpos, newy, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
+	glReadPixels(xpos, newy, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+	glReadPixels(xpos, newy, 1, 1, GL_STENCIL_INDEX, GL_UNSIGNED_INT, &index);
+
+	printf("Clicked on pixel %d, %d, color %02hhx%02hhx%02hhx%02hhx, depth %f, stencil index %u\n",
+		lx, ly, color[0], color[1], color[2], color[3], depth, index);
+	glm::vec3 screenX = glm::vec3(xpos, newy, depth);
+
+	auto camera = Engine::getInstance()->getScene()->getCamera();
+	auto window = Engine::getInstance()->getWindow();
+
+	glm::mat4 view = camera->getViewMatrix();
+	glm::mat4 projection = camera->getProjectionMatrix();
+	glm::vec4 viewPort = glm::vec4(0, 0, window->getWidth(), window->getHeight());
+	glm::vec3 pos = glm::unProject(screenX, view, projection, viewPort);
+
+	printf("unProject [%f,%f,%f]\n", pos.x, pos.y, pos.z);
+
+	auto sm = ShaderManager::getInstance();
+	auto mf = ModelFactory::getInstance();
+
+	Object* toAdd = new Object(mf->getModel(type), sm->getShader(SHADER_TYPE::PHONG_TEX));
+	toAdd->getTransformation()->translate(glm::vec3(pos.x, pos.y, pos.z));
+	Engine::getInstance()->getScene()->AddObject(toAdd);
+}
+
+
+SceneMaker* SceneMaker::getInstance()
+{
+	if (SceneMaker::instance == 0)
+	{
+		return SceneMaker::instance = new SceneMaker();
+	}
+
+	return SceneMaker::instance;
 }

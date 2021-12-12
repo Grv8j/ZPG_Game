@@ -1,7 +1,7 @@
 #pragma once
-#include "Observer.h"
+//#include "Observer.h"
 
-class ShaderObserver : public Observer
+class ShaderObserver
 {
 public:
 	virtual ~ShaderObserver() {};

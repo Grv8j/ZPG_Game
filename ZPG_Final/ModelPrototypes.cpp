@@ -120,6 +120,54 @@ Model* ModelPrototypes::getClone(MODEL_TYPE_PROTOTYPE type)
 			}
 
 			return new Model(*this->plain_skybox_posz_prototype);
+
+		case MODEL_TYPE_PROTOTYPE::BAKE:
+			if (this->bake_prototype == nullptr)
+			{
+				this->bake_prototype = new Model("./Models/zed.obj", this->textureFactory->getTexture(TEXTURE::BAKE));
+			}
+
+			return new Model(*this->bake_prototype);
+
+		case MODEL_TYPE_PROTOTYPE::BAKE1024:
+			if (this->bake1024_prototype == nullptr)
+			{
+				this->bake1024_prototype = new Model("./Models/zed.obj", this->textureFactory->getTexture(TEXTURE::BAKE1024));
+			}
+
+			return new Model(*this->bake1024_prototype);
+
+		case MODEL_TYPE_PROTOTYPE::BUILDING:
+			if (this->building_prototype == nullptr)
+			{
+				this->building_prototype = new Model("./Models/building.obj", this->textureFactory->getTexture(TEXTURE::BUILDING));
+			}
+
+			return new Model(*this->building_prototype);
+
+		case MODEL_TYPE_PROTOTYPE::GRASS:
+			if (this->grass_prototype == nullptr)
+			{
+				this->grass_prototype = new Model("./Models/teren.obj", this->textureFactory->getTexture(TEXTURE::GRASS));
+			}
+
+			return new Model(*this->grass_prototype);
+
+		case MODEL_TYPE_PROTOTYPE::TREE2:
+			if (this->tree2_prototype == nullptr)
+			{
+				this->tree2_prototype = new Model("./Models/tree.obj", this->textureFactory->getTexture(TEXTURE::TREE));
+			}
+
+			return new Model(*this->tree2_prototype);
+
+		case MODEL_TYPE_PROTOTYPE::ZOMBIE:
+			if (this->zombie_prototype == nullptr)
+			{
+				this->zombie_prototype = new Model("./Models/zombie.obj", this->textureFactory->getTexture(TEXTURE::ZOMBIE));
+			}
+
+			return new Model(*this->zombie_prototype);
 	}
 
 	return nullptr;

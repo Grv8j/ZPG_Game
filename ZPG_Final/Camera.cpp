@@ -33,6 +33,16 @@ void Camera::updateCameraVectors() {
 	this->Up = glm::normalize(glm::cross(this->Right, this->Orientation));
 }
 
+glm::mat4 Camera::getViewMatrix()
+{
+	return this->viewMatrix;
+}
+
+glm::mat4 Camera::getProjectionMatrix()
+{
+	return this->projectionMatrix;
+}
+
 
 void Camera::processKeyboardMovement(CAM_MOVE direction)
 {
@@ -92,24 +102,24 @@ void Camera::processMouseMovement(double xoffset, double yoffset, GLboolean cons
 	this->notify();
 }
 
-void Camera::addShaderListener(Observer* observer)
+void Camera::addShaderListener(ShaderObserver* observer)
 {
-	this->shaderObservers.push_back((ShaderObserver*)observer);
+	this->shaderObservers.push_back(observer);
 }
 
-void Camera::deleteShaderListener(Observer* observer)
+void Camera::deleteShaderListener(ShaderObserver* observer)
 {
-	this->shaderObservers.erase(std::remove(this->shaderObservers.begin(), this->shaderObservers.end(), (ShaderObserver*)observer), this->shaderObservers.end());
+	this->shaderObservers.erase(std::remove(this->shaderObservers.begin(), this->shaderObservers.end(), observer), this->shaderObservers.end());
 }
 
-void Camera::addSkyboxListener(Observer* observer)
+void Camera::addSkyboxListener(SkyboxObserver* observer)
 {
-	this->skyboxObservers.push_back((SkyboxObserver*)observer);
+	this->skyboxObservers.push_back(observer);
 }
 
-void Camera::deleteSkyboxListener(Observer* observer)
+void Camera::deleteSkyboxListener(SkyboxObserver* observer)
 {
-	this->skyboxObservers.erase(std::remove(this->skyboxObservers.begin(), this->skyboxObservers.end(), (SkyboxObserver*)observer), this->skyboxObservers.end());
+	this->skyboxObservers.erase(std::remove(this->skyboxObservers.begin(), this->skyboxObservers.end(), observer), this->skyboxObservers.end());
 }
 
 void Camera::notify()

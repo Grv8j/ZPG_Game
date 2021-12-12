@@ -8,11 +8,67 @@ void Skybox::resetPositions()
 	}
 }
 
+void Skybox::nullRotations()
+{
+	for (Object* o : this->sides)
+	{
+		o->getTransformation()->setRotationAngle(0.0f);
+	}
+}
+
+void Skybox::setNEGY(Transformation* t)
+{
+	t->translate(glm::vec3(0.0f, -1.0f, 0.0f));
+	t->setRotation(glm::vec3(0.0f, 1.0f, 0.0f), glm::radians(-90.0f));
+	t->rotate();
+}
+
+void Skybox::setPOSY(Transformation* t)
+{
+	t->translate(glm::vec3(0.0f, 1.0f, 0.0f));
+	t->setRotation(glm::vec3(0.0f, 1.0f, 0.0f), glm::radians(-90.0f));
+	t->rotate();
+}
+
+void Skybox::setNEGX(Transformation* t)
+{
+	t->translate(glm::vec3(-1.0f, 0.0f, 0.0f));
+	t->setRotation(glm::vec3(1.0f, 0.0f, 0.0f), glm::radians(180.0f));
+	t->rotate();
+	t->setRotation(glm::vec3(0.0f, 0.0f, -1.0f), glm::radians(-90.0f));
+	t->rotate();
+}
+
+void Skybox::setPOSX(Transformation* t)
+{
+	t->translate(glm::vec3(1.0f, 0.0f, 0.0f));
+	t->setRotation(glm::vec3(0.0f, 0.0f, -1.0f), glm::radians(90.0f));
+	t->rotate();
+}
+
+void Skybox::setNEGZ(Transformation* t)
+{
+	t->translate(glm::vec3(0.0f, 0.0f, -1.0f));
+	t->setRotation(glm::vec3(0.0f, 1.0f, 0.0f), glm::radians(90.f));
+	t->rotate();
+	t->setRotation(glm::vec3(0.0f, 0.0f, 1.0f), glm::radians(-90.f));
+	t->rotate();
+}
+
+void Skybox::setPOSZ(Transformation* t)
+{
+	t->translate(glm::vec3(0.0f, 0.0f, 1.0f));
+	t->setRotation(glm::vec3(1.0f, 0.0f, 0.0f), glm::radians(90.f));
+	t->rotate();
+	t->setRotation(glm::vec3(0.0f, 1.0f, 0.0f), glm::radians(-90.f));
+	t->rotate();
+}
+
 Skybox::Skybox()
 {
 	auto shader = ShaderManager::getInstance()->getShader(SHADER_TYPE::CLASSIC_TEX);
-	auto mf = new ModelFactory();
-
+	auto mf = ModelFactory::getInstance();
+	
 	this->sides.push_back(new Object(mf->getModel(MODEL_TYPE::SKYBOX_NEGY), shader));
 	this->sides.push_back(new Object(mf->getModel(MODEL_TYPE::SKYBOX_POSY), shader));
 	this->sides.push_back(new Object(mf->getModel(MODEL_TYPE::SKYBOX_NEGX), shader));
@@ -21,91 +77,58 @@ Skybox::Skybox()
 	this->sides.push_back(new Object(mf->getModel(MODEL_TYPE::SKYBOX_POSZ), shader));
 
 	auto s0 = this->sides[0]->getTransformation();
-	s0->translate(glm::vec3(0.0f, -1.0f, 0.0f));
-	s0->setRotation(glm::vec3(0.0f, 1.0f, 0.0f), glm::radians(-90.0f));
-	s0->rotate();
+	this->setNEGY(s0);
 
 	auto s1 = this->sides[1]->getTransformation();
-	s1->translate(glm::vec3(0.0f, 1.0f, 0.0f));
-	s1->setRotation(glm::vec3(0.0f, 1.0f, 0.0f), glm::radians(-90.0f));
-	s1->rotate();
+	this->setPOSY(s1);
 
 	auto s2 = this->sides[2]->getTransformation();
-	s2->translate(glm::vec3(-1.0f, 0.0f, 0.0f));
-	s2->setRotation(glm::vec3(1.0f, 0.0f, 0.0f), glm::radians(180.0f));
-	s2->rotate();
-	s2->setRotation(glm::vec3(0.0f, 0.0f, -1.0f), glm::radians(-90.0f));
-	s2->rotate();
+	this->setNEGX(s2);
 
 	auto s3 = this->sides[3]->getTransformation();
-	s3->translate(glm::vec3(1.0f, 0.0f, 0.0f));
-	s3->setRotation(glm::vec3(0.0f, 0.0f, -1.0f), glm::radians(90.0f));
-	s3->rotate();
+	this->setPOSX(s3);
 
 	auto s4 = this->sides[4]->getTransformation();
-	s4->translate(glm::vec3(0.0f, 0.0f, -1.0f));
-	s4->setRotation(glm::vec3(0.0f, 1.0f, 0.0f), glm::radians(90.f));
-	s4->rotate();
-	s4->setRotation(glm::vec3(0.0f, 0.0f, 1.0f), glm::radians(-90.f));
-	s4->rotate();
+	this->setNEGZ(s4);
 
 	auto s5 = this->sides[5]->getTransformation();
-	s5->translate(glm::vec3(0.0f, 0.0f, 1.0f));
-	s5->setRotation(glm::vec3(1.0f, 0.0f, 0.0f), glm::radians(90.f));
-	s5->rotate();
-	s5->setRotation(glm::vec3(0.0f, 1.0f, 0.0f), glm::radians(-90.f));
-	s5->rotate();
+	this->setPOSZ(s5);
+	
+	this->nullRotations();
 }
 
 void Skybox::update(glm::vec3 position)
 {
-	this->position = position;
-	
+	this->position = position;	
 	this->resetPositions();
 	
 	auto s0 = this->sides[0]->getTransformation();
 	s0->translate(this->position);
-	s0->translate(glm::vec3(0.0f, -1.0f, 0.0f));
-	s0->setRotation(glm::vec3(0.0f, 1.0f, 0.0f), glm::radians(-90.0f));
-	s0->rotate();
+	this->setNEGY(s0);
 
 	auto s1 = this->sides[1]->getTransformation();
 	s1->translate(this->position);
-	s1->translate(glm::vec3(0.0f, 1.0f, 0.0f));
-	s1->setRotation(glm::vec3(0.0f, 1.0f, 0.0f), glm::radians(-90.0f));
-	s1->rotate();
+	this->setPOSY(s1);
 
 	auto s2 = this->sides[2]->getTransformation();
 	s2->translate(this->position);
-	s2->translate(glm::vec3(-1.0f, 0.0f, 0.0f));
-	s2->setRotation(glm::vec3(1.0f, 0.0f, 0.0f), glm::radians(180.0f));
-	s2->rotate();
-	s2->setRotation(glm::vec3(0.0f, 0.0f, -1.0f), glm::radians(-90.0f));
-	s2->rotate();
+	this->setNEGX(s2);
 
 	auto s3 = this->sides[3]->getTransformation();
 	s3->translate(this->position);
-	s3->translate(glm::vec3(1.0f, 0.0f, 0.0f));
-	s3->setRotation(glm::vec3(0.0f, 0.0f, -1.0f), glm::radians(90.0f));
-	s3->rotate();
+	this->setPOSX(s3);
 
 	auto s4 = this->sides[4]->getTransformation();
 	s4->translate(this->position);
-	s4->translate(glm::vec3(0.0f, 0.0f, -1.0f));
-	s4->setRotation(glm::vec3(0.0f, 1.0f, 0.0f), glm::radians(90.f));
-	s4->rotate();
-	s4->setRotation(glm::vec3(0.0f, 0.0f, 1.0f), glm::radians(-90.f));
-	s4->rotate();
+	this->setNEGZ(s4);
 
 	auto s5 = this->sides[5]->getTransformation();
 	s5->translate(this->position);
-	s5->translate(glm::vec3(0.0f, 0.0f, 1.0f));
-	s5->setRotation(glm::vec3(1.0f, 0.0f, 0.0f), glm::radians(90.f));
-	s5->rotate();
-	s5->setRotation(glm::vec3(0.0f, 1.0f, 0.0f), glm::radians(-90.f));
-	s5->rotate();
-	
+	this->setPOSZ(s5);
+
+	this->nullRotations();
 }
+
 
 void Skybox::draw()
 {

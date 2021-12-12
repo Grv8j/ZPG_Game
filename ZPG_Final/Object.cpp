@@ -1,5 +1,10 @@
 #include "Object.h"
 
+Object::Object()
+{
+
+}
+
 Object::Object(Model* model, Shader* shader)
 {
 	this->model = model;
@@ -19,6 +24,8 @@ void Object::draw()
 
 	this->model->getVAO()->Bind();
 	glDrawArrays(this->model->getMode(), 0, this->model->getPointNo());
+
+
 	this->transformation->rotate();
 }
 

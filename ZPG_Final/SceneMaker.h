@@ -11,7 +11,11 @@ private:
 	ModelFactory* modelFactory;
 	ShaderManager* shaderManager;
 
-public:
+	static SceneMaker* instance;
 	SceneMaker();
+public:
+	static SceneMaker* getInstance();
 	void MakeScenes();
+
+	void AddOnClickModel(MODEL_TYPE type);
 };
