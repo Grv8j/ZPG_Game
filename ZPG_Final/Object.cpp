@@ -5,11 +5,12 @@ Object::Object()
 
 }
 
-Object::Object(Model* model, Shader* shader)
+Object::Object(Model* model, Shader* shader, GLint ID)
 {
 	this->model = model;
 	this->shader = shader;
 	this->transformation = new Transformation();
+	this->ID = ID;
 }
 
 void Object::draw()
@@ -27,6 +28,11 @@ void Object::draw()
 
 
 	this->transformation->rotate();
+}
+
+GLint Object::getID()
+{
+	return this->ID;
 }
 
 Shader* Object::getShader()

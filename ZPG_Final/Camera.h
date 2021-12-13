@@ -33,6 +33,7 @@ class Camera : public Subject
 private:
 	std::vector<ShaderObserver*> shaderObservers;
 	std::vector<SkyboxObserver*> skyboxObservers;
+	std::vector<ReflectorObserver*> reflectorOberservers;
 
 	glm::vec3 Position;
 	glm::vec3 Orientation;
@@ -64,6 +65,9 @@ public:
 
 	virtual void addSkyboxListener(SkyboxObserver* observer);
 	virtual void deleteSkyboxListener(SkyboxObserver* observer);
+
+	virtual void addReflectorListener(ReflectorObserver* observer);
+	virtual void deleteReflectorListener(ReflectorObserver* observer);
 
 	virtual void notify();
 

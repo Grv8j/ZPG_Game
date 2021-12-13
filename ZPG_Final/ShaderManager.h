@@ -8,7 +8,8 @@ enum class SHADER_TYPE
 	LAMBERT,
 	PHONG,
 	PHONG_TEX,
-	CLASSIC_TEX
+	CLASSIC_TEX,
+	LIGHTS
 };
 
 class ShaderManager
@@ -19,6 +20,7 @@ private:
 	Shader* phong;
 	Shader* phong_tex;
 	Shader* classic_tex;
+	Shader* lights;
 
 	static ShaderManager* instance;
 	ShaderManager();

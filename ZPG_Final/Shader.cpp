@@ -51,3 +51,33 @@ void Shader::applyLight(glm::vec3 lightPosition)
 {
 	glUniform3fv(this->getUniformLocation("lightPos"), 1, glm::value_ptr(lightPosition));
 }
+
+void Shader::applyDirectionalLight(DirectionalLight* light)
+{
+	glUniform3fv(this->getUniformLocation("dirLight.ambient"), 1, glm::value_ptr(light->getAmbient()));
+	glUniform3fv(this->getUniformLocation("dirLight.diffuse"), 1, glm::value_ptr(light->getDiffuse()));
+	glUniform3fv(this->getUniformLocation("dirLight.specular"), 1, glm::value_ptr(light->getSpectacular()));
+	glUniform3fv(this->getUniformLocation("dirLight.direction"), 1, glm::value_ptr(light->getDirection()));
+}
+
+void Shader::applyPointLights(std::vector<PointLight*> pointLights)
+{
+	for (int i = 0; i < pointLights.size(); i++)
+	{
+		std::string position = std::string("pointLights[") + std::to_string(i) + std::string("]");
+		glUniform3fv(this->getUniformLocation((position + std::string(".ambient")).c_str()), 1, glm::value_ptr(pointLights[i]->getAmbient()));
+		glUniform3fv(this->getUniformLocation((position + std::string(".diffuse")).c_str()), 1, glm::value_ptr(pointLights[i]->getDiffuse()));
+		glUniform3fv(this->getUniformLocation((position + std::string(".specular")).c_str()), 1, glm::value_ptr(pointLights[i]->getSpectacular()));
+		glUniform3fv(this->getUniformLocation((position + std::string(".position")).c_str()), 1, glm::value_ptr(pointLights[i]->getPosition()));
+		glUniform1f(this->getUniformLocation((position + std::string(".constant")).c_str()), pointLights[i]->getConstant());
+		glUniform1f(this->getUniformLocation((position + std::string(".linear")).c_str()), pointLights[i]->getLinear());
+		glUniform1f(this->getUniformLocation((position + std::string(".quadratic")).c_str()), pointLights[i]->getQuadratic());
+	}
+
+	glUniform1i(this->getUniformLocation("pointLightsCount"), pointLights.size());
+}
+
+void Shader::applyReflector(ReflectorLight* reflector)
+{
+	
+}

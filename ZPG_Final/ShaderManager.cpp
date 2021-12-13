@@ -45,6 +45,14 @@ Shader* ShaderManager::getShader(SHADER_TYPE type)
 			}
 
 			return this->classic_tex;
+
+		case SHADER_TYPE::LIGHTS:
+			if (this->lights == nullptr)
+			{
+				this->lights = new Shader("./Shaders/vertex_shader_lights.glsl", "./Shaders/fragment_shader_lights.glsl");
+			}
+
+			return this->lights;
 	}
 
 	return nullptr;
@@ -67,4 +75,5 @@ ShaderManager::ShaderManager()
 	this->phong = nullptr;
 	this->phong_tex = nullptr;
 	this->classic_tex = nullptr;
+	this->lights = nullptr;
 }

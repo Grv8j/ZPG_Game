@@ -122,6 +122,17 @@ void Camera::deleteSkyboxListener(SkyboxObserver* observer)
 	this->skyboxObservers.erase(std::remove(this->skyboxObservers.begin(), this->skyboxObservers.end(), observer), this->skyboxObservers.end());
 }
 
+void Camera::addReflectorListener(ReflectorObserver* observer)
+{
+	this->reflectorOberservers.push_back(observer);
+}
+
+void Camera::deleteReflectorListener(ReflectorObserver* observer)
+{
+	this->reflectorOberservers.erase(std::remove(this->reflectorOberservers.begin(), this->reflectorOberservers.end(), observer), this->reflectorOberservers.end());
+}
+
+
 void Camera::notify()
 {
 	for (ShaderObserver* sh : this->shaderObservers)
@@ -133,5 +144,10 @@ void Camera::notify()
 	for (SkyboxObserver* so : this->skyboxObservers)
 	{
 		so->update(this->Position);
+	}
+
+	for (ReflectorObserver* ro : this->reflectorOberservers)
+	{
+		ro->update(this->Position);
 	}
 }

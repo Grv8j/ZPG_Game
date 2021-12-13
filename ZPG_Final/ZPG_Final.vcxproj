@@ -20,13 +20,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineController.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelFactory.h" />
     <ClInclude Include="ModelPrototypes.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Observer.h" />
+    <ClInclude Include="PointLight.h" />
+    <ClInclude Include="ReflectorLight.h" />
+    <ClInclude Include="ReflectorObserver.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneMaker.h" />
     <ClInclude Include="Shader.h" />
@@ -45,13 +50,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="EngineController.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelFactory.cpp" />
     <ClCompile Include="ModelPrototypes.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="PointLight.cpp" />
+    <ClCompile Include="ReflectorLight.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneMaker.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -64,6 +73,9 @@
     <ClCompile Include="VAO.cpp" />
     <ClCompile Include="VBO.cpp" />
     <ClCompile Include="Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -13,11 +13,13 @@ private:
 	Shader* shader;
 	Model* model;
 	Transformation* transformation;
+	GLint ID;
 
 public:
 	Object();
-	Object(Model* model, Shader* shader);
+	Object(Model* model, Shader* shader, GLint ID = 0);
 	void draw();
+	GLint getID();
 
 	Shader* getShader();
 	Transformation* getTransformation();

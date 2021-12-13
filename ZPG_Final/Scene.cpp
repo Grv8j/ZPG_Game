@@ -4,6 +4,7 @@ Scene::Scene()
 {
 	this->camera = nullptr;
 	this->lightPos = glm::vec3(0.0f, 0.0f, 5.0f);
+	this->directionalLight = nullptr;
 }
 
 void Scene::Draw(GLfloat timeDelta)
@@ -13,12 +14,23 @@ void Scene::Draw(GLfloat timeDelta)
 		this->skybox->draw();
 	}
 
-	for (Object* element : this->objects)
+	for (Object* o : this->objects)
 	{
-		
-		element->getShader()->useShader();
-		element->getShader()->applyLight(this->lightPos);
-		element->draw();
+		o->getShader()->useShader();
+
+		if (this->directionalLight != nullptr)
+		{
+			o->getShader()->applyDirectionalLight(this->directionalLight);
+		}
+
+		if (this->pointLights.size() > 0)
+		{
+			o->getShader()->applyPointLights(this->pointLights);
+		}
+
+		o->getShader()->applyLight(this->lightPos);
+		glStencilFunc(GL_ALWAYS, o->getID(), 0xFF);
+		o->draw();
 	}
 }
 
@@ -46,4 +58,14 @@ void Scene::setSkybox(Skybox* skybox)
 {
 	this->skybox = skybox;
 	this->camera->addSkyboxListener(this->skybox);
+}
+
+void Scene::setDirectionalLight(DirectionalLight* directLight)
+{
+	this->directionalLight = directLight;
+}
+
+void Scene::addPointLight(PointLight* pointLight)
+{
+	this->pointLights.push_back(pointLight);
 }
