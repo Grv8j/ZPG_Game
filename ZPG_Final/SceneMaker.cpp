@@ -27,6 +27,7 @@ void SceneMaker::MakeScenes()
 	camera->addShaderListener(this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
 
 
+	ReflectorLight* ref = new ReflectorLight(glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::cos(glm::radians(12.5f)), glm::cos(glm::radians(15.0f)));
 
 	Scene* with_skybox = new Scene();
 	with_skybox->SetLightPos(glm::vec3(15.0f, 50.0f, 0.0f));
@@ -36,6 +37,7 @@ void SceneMaker::MakeScenes()
 
 	Skybox* skybox = new Skybox();
 	with_skybox->setSkybox(skybox);
+	with_skybox->setReflector(ref);
 
 	//Object* treet = new Object(this->modelFactory->getModel(MODEL_TYPE::TREE), this->shaderManager->getShader(SHADER_TYPE::PHONG));
 	//with_skybox->AddObject(treet);
@@ -88,7 +90,7 @@ void SceneMaker::MakeScenes()
 
 	Object* tree = new Object(this->modelFactory->getModel(MODEL_TYPE::TREE), this->shaderManager->getShader(SHADER_TYPE::PHONG));
 
-	//Object* plain = new Object(this->modelFactory->getModel(MODEL_TYPE::PLAIN), this->shaderManager->getShader(SHADER_TYPE::PHONG));
+
 	Object* plain = new Object(this->modelFactory->getModel(MODEL_TYPE::PLAIN_TEX), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
 	plain->getTransformation()->scale(glm::vec3(10.0f, 10.0f, 10.0f));
 
@@ -124,7 +126,6 @@ void SceneMaker::MakeScenes()
 	camera3->addShaderListener(this->shaderManager->getShader(SHADER_TYPE::LAMBERT));
 	camera3->addShaderListener(this->shaderManager->getShader(SHADER_TYPE::PHONG));
 	camera3->addShaderListener(this->shaderManager->getShader(SHADER_TYPE::PHONG_TEX));
-	camera3->addShaderListener(this->shaderManager->getShader(SHADER_TYPE::CLASSIC_TEX));
 
 
 	Scene* balls = new Scene();
@@ -151,9 +152,6 @@ void SceneMaker::MakeScenes()
 
 
 	engine->addScene(balls);
-
-
-
 }
 
 void SceneMaker::AddOnClickModel(MODEL_TYPE type)

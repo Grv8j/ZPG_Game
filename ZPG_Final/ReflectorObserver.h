@@ -5,5 +5,5 @@ class ReflectorObserver
 {
 public:
 	virtual ~ReflectorObserver() {};
-	virtual void update(glm::vec3 position) = 0;
+	virtual void update(glm::vec3 position, glm::vec3 direction) = 0;
 };

@@ -28,6 +28,11 @@ void Scene::Draw(GLfloat timeDelta)
 			o->getShader()->applyPointLights(this->pointLights);
 		}
 
+		if (this->reflector != nullptr)
+		{
+			o->getShader()->applyReflector(this->reflector);
+		}
+
 		o->getShader()->applyLight(this->lightPos);
 		glStencilFunc(GL_ALWAYS, o->getID(), 0xFF);
 		o->draw();
@@ -68,4 +73,10 @@ void Scene::setDirectionalLight(DirectionalLight* directLight)
 void Scene::addPointLight(PointLight* pointLight)
 {
 	this->pointLights.push_back(pointLight);
+}
+
+void Scene::setReflector(ReflectorLight* reflector)
+{
+	this->reflector = reflector;
+	this->camera->addReflectorListener(this->reflector);
 }

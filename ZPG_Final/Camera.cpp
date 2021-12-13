@@ -14,6 +14,7 @@ Camera::Camera(int width, int height, glm::vec3 position)
 	this->MovementSpeed = def_movement_speed;
 	this->Sensitivity = def_sensitivity;
 
+	this->reflectorOberserver = nullptr;
 
 	this->setViewMatrix();
 	this->projectionMatrix = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 100.0f);
@@ -124,12 +125,12 @@ void Camera::deleteSkyboxListener(SkyboxObserver* observer)
 
 void Camera::addReflectorListener(ReflectorObserver* observer)
 {
-	this->reflectorOberservers.push_back(observer);
+	this->reflectorOberserver = observer;
 }
 
 void Camera::deleteReflectorListener(ReflectorObserver* observer)
 {
-	this->reflectorOberservers.erase(std::remove(this->reflectorOberservers.begin(), this->reflectorOberservers.end(), observer), this->reflectorOberservers.end());
+	this->reflectorOberserver = nullptr;
 }
 
 
@@ -146,8 +147,8 @@ void Camera::notify()
 		so->update(this->Position);
 	}
 
-	for (ReflectorObserver* ro : this->reflectorOberservers)
+	if (this->reflectorOberserver != nullptr)
 	{
-		ro->update(this->Position);
+		this->reflectorOberserver->update(this->Position, this->Orientation);
 	}
 }

@@ -33,7 +33,7 @@ class Camera : public Subject
 private:
 	std::vector<ShaderObserver*> shaderObservers;
 	std::vector<SkyboxObserver*> skyboxObservers;
-	std::vector<ReflectorObserver*> reflectorOberservers;
+	ReflectorObserver* reflectorOberserver;
 
 	glm::vec3 Position;
 	glm::vec3 Orientation;

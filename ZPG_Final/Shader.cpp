@@ -35,11 +35,6 @@ void Shader::useShader()
 
 }
 
-GLuint Shader::getShaderProgram()
-{
-	return this->ID;
-}
-
 void Shader::update(glm::mat4 viewMatrix, glm::mat4 projectionMatrix, glm::vec3 cameraPosition)
 {
 	this->viewMatrix = viewMatrix;
@@ -79,5 +74,14 @@ void Shader::applyPointLights(std::vector<PointLight*> pointLights)
 
 void Shader::applyReflector(ReflectorLight* reflector)
 {
-	
+	glUniform3fv(this->getUniformLocation("flashlight.ambient"), 1, glm::value_ptr(reflector->getAmbient()));
+	glUniform3fv(this->getUniformLocation("flashlight.diffuse"), 1, glm::value_ptr(reflector->getDiffuse()));
+	glUniform3fv(this->getUniformLocation("flashlight.specular"), 1, glm::value_ptr(reflector->getSpectacular()));
+	glUniform3fv(this->getUniformLocation("flashlight.direction"), 1, glm::value_ptr(reflector->getDirection()));
+	glUniform3fv(this->getUniformLocation("flashlight.position"), 1, glm::value_ptr(reflector->getPosition()));
+	glUniform1f(this->getUniformLocation("flashlight.constant"), reflector->getConstant());
+	glUniform1f(this->getUniformLocation("flashlight.linear"), reflector->getLinear());
+	glUniform1f(this->getUniformLocation("flashlight.quadratic"), reflector->getQuadratic());
+	glUniform1f(this->getUniformLocation("flashlight.cutOff"), reflector->getCutOff());
+	glUniform1f(this->getUniformLocation("flashlight.outerCutOff"), reflector->getOuterCutOff());
 }

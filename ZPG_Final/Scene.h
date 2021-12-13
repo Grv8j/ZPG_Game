@@ -5,6 +5,7 @@
 #include <vector>
 #include "DirectionalLight.h"
 #include "PointLight.h"
+#include "ReflectorLight.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -14,6 +15,7 @@ class Scene
 private:
 	std::vector <Object*> objects;
 	std::vector<PointLight*> pointLights;
+	ReflectorLight* reflector;
 	Camera* camera;
 	Skybox* skybox;
 	DirectionalLight* directionalLight;
@@ -28,6 +30,7 @@ public:
 	void setSkybox(Skybox* skybox);
 	void setDirectionalLight(DirectionalLight* directLight);
 	void addPointLight(PointLight* pointLight);
+	void setReflector(ReflectorLight* reflector);
 
 	Camera* getCamera();
 };

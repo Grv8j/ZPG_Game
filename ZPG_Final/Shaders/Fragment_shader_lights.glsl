@@ -44,12 +44,12 @@ uniform vec3 cameraPos;
 uniform sampler2D textureUnitID;
 
 uniform DirLight dirLight;
-//uniform SpotLight flashlight;
+uniform SpotLight flashlight;
 
 #define MAX_POINT_LIGHTS 10  
 uniform PointLight pointLights[MAX_POINT_LIGHTS];
 uniform int pointLightsCount;
-uniform int spotLightOn;
+//uniform int spotLightOn;
 
 out vec4 out_Color;
 
@@ -125,7 +125,7 @@ void main()
     }
     // and add others lights as well (like spotlights)
     //if(spotLightOn == 1)
-       // base += CalcSpotLight(flashlight, ex_worldNormal, ex_worldPosition.xyz, viewDirection);
+    base += CalcSpotLight(flashlight, ex_worldNormal, ex_worldPosition.xyz, viewDirection);
 
     out_Color = vec4(base,1.0f);
 } 
