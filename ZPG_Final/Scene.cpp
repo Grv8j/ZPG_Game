@@ -3,7 +3,7 @@
 Scene::Scene() 
 {
 	this->camera = nullptr;
-	this->lightPos = glm::vec3(0.0f, 0.0f, 5.0f);
+	this->lightPos = glm::vec3(0.0f, 0.0f, 0.0f);
 	this->directionalLight = nullptr;
 }
 
@@ -34,6 +34,8 @@ void Scene::Draw(GLfloat timeDelta)
 		}
 
 		o->getShader()->applyLight(this->lightPos);
+
+
 		glStencilFunc(GL_ALWAYS, o->getID(), 0xFF);
 		o->draw();
 	}

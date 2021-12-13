@@ -29,6 +29,7 @@
     <ClInclude Include="ModelPrototypes.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Observer.h" />
+    <ClInclude Include="Path.h" />
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="ReflectorLight.h" />
     <ClInclude Include="ReflectorObserver.h" />
@@ -59,6 +60,7 @@
     <ClCompile Include="ModelFactory.cpp" />
     <ClCompile Include="ModelPrototypes.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Path.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="ReflectorLight.cpp" />
     <ClCompile Include="Scene.cpp" />

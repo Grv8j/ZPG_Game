@@ -17,7 +17,7 @@ void SceneMaker::MakeScenes()
 
 
 	// ---------- SCENE 1 ----------//
-	Camera* camera = new Camera(engine->getWindow()->getWidth(), engine->getWindow()->getHeight(), glm::vec3(0.0f, 3.0f, 10.0f));
+	Camera* camera = new Camera(engine->getWindow()->getWidth(), engine->getWindow()->getHeight(), glm::vec3(0.0f, 3.0f, 25.0f));
 	//camera->addListener(constSp);
 	//camera->addListener(colSp);
 	camera->addShaderListener(this->shaderManager->getShader(SHADER_TYPE::LAMBERT));
@@ -33,7 +33,7 @@ void SceneMaker::MakeScenes()
 	with_skybox->SetLightPos(glm::vec3(15.0f, 50.0f, 0.0f));
 	with_skybox->setCamera(camera);
 	with_skybox->setDirectionalLight(new DirectionalLight(glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.2f, -1.0f, 0.4f)));
-	//with_skybox->addPointLight(new PointLight(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.f, 2.f, 11.5f)));
+	with_skybox->addPointLight(new PointLight(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.f, 2.f, 11.5f)));
 
 	Skybox* skybox = new Skybox();
 	with_skybox->setSkybox(skybox);
@@ -75,7 +75,6 @@ void SceneMaker::MakeScenes()
 
 	//---------- SCENA 2 ----------//
 	Camera* camera2 = new Camera(engine->getWindow()->getWidth(), engine->getWindow()->getHeight(), glm::vec3(0.0f, 3.0f, 10.0f));
-	camera2->addShaderListener(this->shaderManager->getShader(SHADER_TYPE::LAMBERT));
 	camera2->addShaderListener(this->shaderManager->getShader(SHADER_TYPE::PHONG));
 	camera2->addShaderListener(this->shaderManager->getShader(SHADER_TYPE::PHONG_TEX));
 	camera2->addShaderListener(this->shaderManager->getShader(SHADER_TYPE::CLASSIC_TEX));
@@ -85,7 +84,7 @@ void SceneMaker::MakeScenes()
 
 	Scene* test = new Scene();
 	test->setCamera(camera2);
-	test->SetLightPos(glm::vec3(0.0f, 5.0f, 0.0f));
+	test->SetLightPos(glm::vec3(0.0f, 8.0f, 0.0f));
 	test->addPointLight(new PointLight(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(2.0f, 0.1f, 2.0f)));
 
 	Object* tree = new Object(this->modelFactory->getModel(MODEL_TYPE::TREE), this->shaderManager->getShader(SHADER_TYPE::PHONG));
