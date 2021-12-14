@@ -6,22 +6,26 @@
 #include "Shader.h"
 #include "Model.h"
 #include "Transformation.h"
+#include "Path.h"
 
 class Object
 {
 private:
 	Shader* shader;
 	Model* model;
+	Path* path;
 	Transformation* transformation;
 	GLint ID;
 
 public:
 	Object();
-	Object(Model* model, Shader* shader, GLint ID = 0);
+	Object(Model* model, Shader* shader, Path* path = nullptr);
 	void draw();
 	GLint getID();
+	void setID(GLint ID);
 
 	Shader* getShader();
 	Transformation* getTransformation();
+	Path* getPath();
 };
 

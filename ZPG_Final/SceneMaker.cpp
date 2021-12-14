@@ -32,20 +32,35 @@ void SceneMaker::MakeScenes()
 	Scene* with_skybox = new Scene();
 	with_skybox->SetLightPos(glm::vec3(15.0f, 50.0f, 0.0f));
 	with_skybox->setCamera(camera);
-	with_skybox->setDirectionalLight(new DirectionalLight(glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.2f, -1.0f, 0.4f)));
+	//with_skybox->setDirectionalLight(new DirectionalLight(glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.2f, -1.0f, 0.4f)));
+	with_skybox->setDirectionalLight(new DirectionalLight(glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.2f, -1.0f, 0.4f)));
 	with_skybox->addPointLight(new PointLight(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.f, 2.f, 11.5f)));
 
 	Skybox* skybox = new Skybox();
 	with_skybox->setSkybox(skybox);
 	with_skybox->setReflector(ref);
 
-	//Object* treet = new Object(this->modelFactory->getModel(MODEL_TYPE::TREE), this->shaderManager->getShader(SHADER_TYPE::PHONG));
-	//with_skybox->AddObject(treet);
+
 
 	Object* building = new Object(this->modelFactory->getModel(MODEL_TYPE::BUILDING), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
 	with_skybox->AddObject(building);
 
-	Object* terrain = new Object(this->modelFactory->getModel(MODEL_TYPE::GRASS), this->shaderManager->getShader(SHADER_TYPE::LIGHTS), 1);
+	Object* building2 = new Object(this->modelFactory->getModel(MODEL_TYPE::BUILDING), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
+	building2->getTransformation()->translate(glm::vec3(18.0f, 0.0f, 6.0f));
+	building2->getTransformation()->setRotationAngle(-0.7f);
+	building2->getTransformation()->rotate();
+	building2->getTransformation()->setRotationAngle(0.0f);
+	with_skybox->AddObject(building2);
+
+	Object* building3 = new Object(this->modelFactory->getModel(MODEL_TYPE::BUILDING), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
+	building3->getTransformation()->translate(glm::vec3(-18.0f, 0.0f, 6.0f));
+	building3->getTransformation()->setRotationAngle(0.7f);
+	building3->getTransformation()->rotate();
+	building3->getTransformation()->setRotationAngle(0.0f);
+	with_skybox->AddObject(building3);
+
+	Object* terrain = new Object(this->modelFactory->getModel(MODEL_TYPE::SAND), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
+	terrain->setID(1);
 	terrain->getTransformation()->scale(glm::vec3(3.0f, 3.0f, 3.0f));
 	with_skybox->AddObject(terrain);
 
@@ -53,13 +68,89 @@ void SceneMaker::MakeScenes()
 	tree3->getTransformation()->translate(glm::vec3(8.0f, 0.0f, 0.0f));
 	with_skybox->AddObject(tree3);
 
-	Object* zombie = new Object(this->modelFactory->getModel(MODEL_TYPE::ZOMBIE), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
-	zombie->getTransformation()->translate(glm::vec3(-8.0f, 0.0f, 0.0f));
-	with_skybox->AddObject(zombie);
+	Object* tree4 = new Object(this->modelFactory->getModel(MODEL_TYPE::TREE2), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
+	tree4->getTransformation()->translate(glm::vec3(-8.0f, 0.0f, 0.0f));
+	with_skybox->AddObject(tree4);
 
-	Object* brick = new Object(this->modelFactory->getModel(MODEL_TYPE::BAKE), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
-	brick->getTransformation()->translate(glm::vec3(-10.0f, 0.0f, 5.0f));
-	with_skybox->AddObject(brick);
+	Object* grassPlain = new Object(this->modelFactory->getModel(MODEL_TYPE::PLAIN_TEX_GRASS), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
+	grassPlain->getTransformation()->scale(glm::vec3(36.0f, 36.0f, 36.0f));
+	grassPlain->getTransformation()->translate(glm::vec3(0.0f, 0.001f, 0.0f));
+	with_skybox->AddObject(grassPlain);
+
+
+	for (int i = 0; i < 5; i++)
+	{
+		Object* brickBR = new Object(this->modelFactory->getModel(MODEL_TYPE::BAKE), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
+		brickBR->getTransformation()->translate(glm::vec3(i * 8.0f, 0.0f, -20.0f));
+		with_skybox->AddObject(brickBR);
+
+		Object* brickBL = new Object(this->modelFactory->getModel(MODEL_TYPE::BAKE), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
+		brickBL->getTransformation()->translate(glm::vec3(i * (-8.0f), 0.0f, -20.0f));
+		with_skybox->AddObject(brickBL);
+	}
+
+	for (int i = 0; i < 5; i++)
+	{
+		Object* brickFR = new Object(this->modelFactory->getModel(MODEL_TYPE::BAKE), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
+		brickFR->getTransformation()->translate(glm::vec3(i * 8.0f, 0.0f, 28.0f));
+		with_skybox->AddObject(brickFR);
+
+		Object* brickFL = new Object(this->modelFactory->getModel(MODEL_TYPE::BAKE), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
+		brickFL->getTransformation()->translate(glm::vec3(i * (-8.0f), 0.0f, 28.0f));
+		with_skybox->AddObject(brickFL);
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		Object* brickLR = new Object(this->modelFactory->getModel(MODEL_TYPE::BAKE), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
+		brickLR->getTransformation()->translate(glm::vec3(-35.0f, 0.0f, i * 8.0f));
+		brickLR->getTransformation()->setRotationAngle(1.58f);
+		brickLR->getTransformation()->rotate();
+		brickLR->getTransformation()->setRotationAngle(0.0f);
+		with_skybox->AddObject(brickLR);
+
+		Object* brickLL = new Object(this->modelFactory->getModel(MODEL_TYPE::BAKE), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
+		brickLL->getTransformation()->translate(glm::vec3(-35.0f, 0.0f, (i - 1) * (-8.0f)));
+		brickLL->getTransformation()->setRotationAngle(1.58f);
+		brickLL->getTransformation()->rotate();
+		brickLL->getTransformation()->setRotationAngle(0.0f);
+		with_skybox->AddObject(brickLL);
+
+		Object* brickRR = new Object(this->modelFactory->getModel(MODEL_TYPE::BAKE), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
+		brickRR->getTransformation()->translate(glm::vec3(35.0f, 0.0f, i * 8.0f));
+		brickRR->getTransformation()->setRotationAngle(1.58f);
+		brickRR->getTransformation()->rotate();
+		brickRR->getTransformation()->setRotationAngle(0.0f);
+		with_skybox->AddObject(brickRR);
+
+		Object* brickLRL = new Object(this->modelFactory->getModel(MODEL_TYPE::BAKE), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
+		brickLRL->getTransformation()->translate(glm::vec3(35.0f, 0.0f, (i - 1) * (-8.0f)));
+		brickLRL->getTransformation()->setRotationAngle(1.58f);
+		brickLRL->getTransformation()->rotate();
+		brickLRL->getTransformation()->setRotationAngle(0.0f);
+		with_skybox->AddObject(brickLRL);
+	}
+
+
+	Path* zombiePath = new Path();
+	zombiePath->addWaypoints(glm::vec3(-20.f, 0.f, -17.f));
+	zombiePath->addWaypoints(glm::vec3(20.f, 0.f, -16.f));
+	zombiePath->addWaypoints(glm::vec3(20.f, 0.f, 10.f));
+	zombiePath->addWaypoints(glm::vec3(-10.f, 0.f, 20.f));
+
+	Object* zombie = new Object(this->modelFactory->getModel(MODEL_TYPE::ZOMBIE), this->shaderManager->getShader(SHADER_TYPE::LIGHTS), zombiePath);
+	//zombie->getTransformation()->translate(glm::vec3(-20.0f, 0.0f, 0.0f));
+
+
+	Object* zombieTest1 = new Object(this->modelFactory->getModel(MODEL_TYPE::ZOMBIE), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
+	zombieTest1->getTransformation()->translate(glm::vec3(-20.f, 0.f, -10.f));
+	with_skybox->AddObject(zombieTest1);
+
+	Object* zombieTest2= new Object(this->modelFactory->getModel(MODEL_TYPE::ZOMBIE), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
+	zombieTest2->getTransformation()->translate(glm::vec3(-10.f, 0.f, 20.f));
+	with_skybox->AddObject(zombieTest2);
+
+	with_skybox->AddObject(zombie);
 
 
 

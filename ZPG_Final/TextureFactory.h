@@ -17,7 +17,8 @@ enum class TEXTURE
 	BUILDING,
 	GRASS,
 	TREE,
-	ZOMBIE
+	ZOMBIE,
+	SAND
 };
 
 class TextureFactory

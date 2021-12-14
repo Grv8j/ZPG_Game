@@ -73,6 +73,14 @@ Model* ModelPrototypes::getClone(MODEL_TYPE_PROTOTYPE type)
 
 			return new Model(*this->plain_tex_prototype);
 
+		case MODEL_TYPE_PROTOTYPE::PLAIN_TEX_GRASS:
+			if (this->plain_tex_grass_prototype == nullptr)
+			{
+				this->plain_tex_grass_prototype = new Model(plain_tex, 48, 8, this->textureFactory->getTexture(TEXTURE::GRASS));
+			}
+
+			return new Model(*this->plain_tex_grass_prototype);
+
 		case MODEL_TYPE_PROTOTYPE::PLAIN_SKYBOX_NEGX:
 			if (this->plain_skybox_negx_prototype == nullptr)
 			{
@@ -168,6 +176,14 @@ Model* ModelPrototypes::getClone(MODEL_TYPE_PROTOTYPE type)
 			}
 
 			return new Model(*this->zombie_prototype);
+
+		case MODEL_TYPE_PROTOTYPE::SAND:
+			if (this->sand_prototype == nullptr)
+			{
+				this->sand_prototype = new Model("./Models/teren.obj", this->textureFactory->getTexture(TEXTURE::SAND));
+			}
+
+			return new Model(*this->sand_prototype);
 	}
 
 	return nullptr;

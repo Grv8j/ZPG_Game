@@ -7,6 +7,7 @@ class Path
 private:
 	std::vector<glm::vec3> waypoints;
 	float t;
+	bool forward;
 
 	int computeBinomial(int n, int k);
 

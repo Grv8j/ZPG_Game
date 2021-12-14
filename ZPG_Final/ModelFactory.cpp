@@ -45,6 +45,9 @@ Model* ModelFactory::getModel(MODEL_TYPE type)
 		case MODEL_TYPE::PLAIN_TEX:
 			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::PLAIN_TEX);
 
+		case MODEL_TYPE::PLAIN_TEX_GRASS:
+			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::PLAIN_TEX_GRASS);
+
 		case MODEL_TYPE::SKYBOX_NEGX:
 			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::PLAIN_SKYBOX_NEGX);
 
@@ -80,6 +83,9 @@ Model* ModelFactory::getModel(MODEL_TYPE type)
 
 		case MODEL_TYPE::ZOMBIE:
 			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::ZOMBIE);
+
+		case MODEL_TYPE::SAND:
+			return this->model_prototypes->getClone(MODEL_TYPE_PROTOTYPE::SAND);
 	}
 
 	return nullptr;

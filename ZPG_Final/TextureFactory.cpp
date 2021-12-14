@@ -42,6 +42,9 @@ Texture* TextureFactory::getTexture(TEXTURE type)
 
 		case TEXTURE::ZOMBIE:
 			return new Texture("./Textures/zombie.png", 0, TEXTURE_TYPE::RGBA);
+
+		case TEXTURE::SAND:
+			return new Texture("./Textures/sand.jpg", 0, TEXTURE_TYPE::RGB);
 	}
 
 	return nullptr;

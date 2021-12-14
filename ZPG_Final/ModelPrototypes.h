@@ -21,6 +21,7 @@ enum class MODEL_TYPE_PROTOTYPE
 	GIFT,
 	TREE,
 	PLAIN_TEX,
+	PLAIN_TEX_GRASS,
 
 	PLAIN_SKYBOX_NEGX,
 	PLAIN_SKYBOX_NEGY,
@@ -34,7 +35,8 @@ enum class MODEL_TYPE_PROTOTYPE
 	BUILDING,
 	GRASS,
 	TREE2,
-	ZOMBIE
+	ZOMBIE,
+	SAND
 };
 
 
@@ -63,6 +65,8 @@ private:
 	Model* grass_prototype;
 	Model* tree2_prototype;
 	Model* zombie_prototype;
+	Model* sand_prototype;
+	Model* plain_tex_grass_prototype;
 
 	TextureFactory* textureFactory;
 

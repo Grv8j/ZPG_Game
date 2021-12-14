@@ -13,12 +13,13 @@ int Path::computeBinomial(int n, int k)
 	}
 
 	// Recur
-	return computeBinomial(n - 1, k - 1) + computeBinomial(n - 1, k);
+	return computeBinomial(n - 1, k - 1) + computeBinomial(n - 1, k);	
 }
 
 Path::Path()
 {
 	this->t = 0.0f;
+	this->forward = true;
 }
 
 void Path::addWaypoints(glm::vec3 points)
@@ -28,22 +29,31 @@ void Path::addWaypoints(glm::vec3 points)
 
 glm::vec3 Path::moveToNext(float delta)
 {
-	glm::vec3 point;
+	glm::vec3 point = glm::vec3(0.0f);
 
-	for (int i = 0; i <= this->waypoints.size(); i++)
+	for (int i = 0; i < this->waypoints.size(); i++)
 	{
-		float ct = computeBinomial(this->waypoints.size() - 1, i) * pow(this->t, i) * pow((1 - this->t), this->waypoints.size() - i);
+		float ct = computeBinomial(this->waypoints.size() - 1, i) * pow(this->t, i) * pow((1 - this->t), this->waypoints.size() - 1 - i);
 
-		point.x = this->waypoints[i].x * ct;
-		point.y = this->waypoints[i].y * ct;
-		point.z = this->waypoints[i].z * ct;
+		point.x += this->waypoints[i].x * ct;
+		point.y += this->waypoints[i].y * ct;
+		point.z += this->waypoints[i].z * ct;
 	}
 
-	if (t > 1.0f || t < 0.0f)
+	if (this->t > 1.0f || this->t < 0.0f)
 	{
-		delta *= -1;
+		this->forward = !this->forward;
 	}
 
-	this->t += delta;
+	if (this->forward)
+	{
+		this->t += delta;
+	}
+
+	else
+	{
+		this->t -= delta;
+	}
+
 	return point;
 }
