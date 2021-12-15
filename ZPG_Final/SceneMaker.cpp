@@ -32,8 +32,8 @@ void SceneMaker::MakeScenes()
 	Scene* with_skybox = new Scene();
 	with_skybox->SetLightPos(glm::vec3(15.0f, 50.0f, 0.0f));
 	with_skybox->setCamera(camera);
-	//with_skybox->setDirectionalLight(new DirectionalLight(glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.2f, -1.0f, 0.4f)));
-	with_skybox->setDirectionalLight(new DirectionalLight(glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.2f, -1.0f, 0.4f)));
+	with_skybox->setDirectionalLight(new DirectionalLight(glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.2f, -1.0f, 0.4f)));
+	//with_skybox->setDirectionalLight(new DirectionalLight(glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.2f, -1.0f, 0.4f)));
 	with_skybox->addPointLight(new PointLight(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.f, 2.f, 11.5f)));
 
 	Skybox* skybox = new Skybox();
@@ -66,13 +66,16 @@ void SceneMaker::MakeScenes()
 
 	Object* tree3 = new Object(this->modelFactory->getModel(MODEL_TYPE::TREE2), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
 	tree3->getTransformation()->translate(glm::vec3(8.0f, 0.0f, 0.0f));
+	tree3->getTransformation()->scale(glm::vec3(0.5f, 0.5f, 0.5f));
 	with_skybox->AddObject(tree3);
 
 	Object* tree4 = new Object(this->modelFactory->getModel(MODEL_TYPE::TREE2), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
 	tree4->getTransformation()->translate(glm::vec3(-8.0f, 0.0f, 0.0f));
+	tree4->getTransformation()->scale(glm::vec3(0.5f, 0.5f, 0.5f));
 	with_skybox->AddObject(tree4);
 
 	Object* grassPlain = new Object(this->modelFactory->getModel(MODEL_TYPE::PLAIN_TEX_GRASS), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
+	grassPlain->setID(1);
 	grassPlain->getTransformation()->scale(glm::vec3(36.0f, 36.0f, 36.0f));
 	grassPlain->getTransformation()->translate(glm::vec3(0.0f, 0.001f, 0.0f));
 	with_skybox->AddObject(grassPlain);
@@ -168,7 +171,7 @@ void SceneMaker::MakeScenes()
 	Camera* camera2 = new Camera(engine->getWindow()->getWidth(), engine->getWindow()->getHeight(), glm::vec3(0.0f, 3.0f, 10.0f));
 	camera2->addShaderListener(this->shaderManager->getShader(SHADER_TYPE::PHONG));
 	camera2->addShaderListener(this->shaderManager->getShader(SHADER_TYPE::PHONG_TEX));
-	camera2->addShaderListener(this->shaderManager->getShader(SHADER_TYPE::CLASSIC_TEX));
+	//camera2->addShaderListener(this->shaderManager->getShader(SHADER_TYPE::CLASSIC_TEX));
 	camera2->addShaderListener(this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
 
 
@@ -181,7 +184,7 @@ void SceneMaker::MakeScenes()
 	Object* tree = new Object(this->modelFactory->getModel(MODEL_TYPE::TREE), this->shaderManager->getShader(SHADER_TYPE::PHONG));
 
 
-	Object* plain = new Object(this->modelFactory->getModel(MODEL_TYPE::PLAIN_TEX), this->shaderManager->getShader(SHADER_TYPE::LIGHTS));
+	Object* plain = new Object(this->modelFactory->getModel(MODEL_TYPE::PLAIN_TEX), this->shaderManager->getShader(SHADER_TYPE::PHONG_TEX));
 	plain->getTransformation()->scale(glm::vec3(10.0f, 10.0f, 10.0f));
 
 	Object* gift = new Object(this->modelFactory->getModel(MODEL_TYPE::GIFT), this->shaderManager->getShader(SHADER_TYPE::PHONG));
@@ -285,6 +288,7 @@ void SceneMaker::AddOnClickModel(MODEL_TYPE type)
 
 		Object* toAdd = new Object(mf->getModel(type), sm->getShader(SHADER_TYPE::PHONG_TEX));
 		toAdd->getTransformation()->translate(glm::vec3(pos.x, pos.y, pos.z));
+		toAdd->getTransformation()->scale(glm::vec3(0.5f, 0.5f, 0.5f));
 		Engine::getInstance()->getScene()->AddObject(toAdd);
 	}
 }

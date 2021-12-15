@@ -18,13 +18,13 @@ vec3 ambientLight = vec3(0.1f, 0.1f, 0.1f);
 //Diffusion
 vec3 toLightVector = normalize(lightPos - ex_worldPosition.xyz);
 float dot_product = max(dot(toLightVector, normalize(ex_worldNormal)), 0.0);
-vec3 diffuse = dot_product * vec3( 1.0f, 1.0f, 1.0f);
+vec3 diffuse = dot_product * vec3( 0.5f, 0.5f, 0.5f);
 //Specular
 vec3 fromLightVector = normalize(ex_worldPosition.xyz - lightPos);
 vec3 reflectFromLightVector = normalize(reflect(fromLightVector, normalize(ex_worldNormal)));
 vec3 toCamVector = normalize(cameraPos - ex_worldPosition.xyz);
 float specularConstant = pow(max(dot(toCamVector, reflectFromLightVector),0), 30);
-vec3 specular = vec3(1.f, 1.f, 1.f) * specularConstant;
+vec3 specular = vec3(0.5f, 0.5f, 0.5f) * specularConstant;
 //Output
 out_Color = texture(textureUnitID, ex_uv) * (vec4(ambientLight, 1.f)
         +   vec4(diffuse, 1.f)) + vec4(specular, 1.f) ; 
